@@ -74,10 +74,10 @@ knowledge-points/
 - Coverage status: Pass / Incomplete
 
 ## Ordered Knowledge Points
-| ID | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Main Sources | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | 2024 Midterm Q2; 2023 Final Q1(b) | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
-| KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | 2023 Final Q4; 2022 Resit Q3 | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
+| ID | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Linked Material Evidence | Main Sources | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | 2024 Midterm Q2; 2023 Final Q1(b) | lecture-03.pdf p.12; week-3-slides.pdf slide 8; notes/probability.md | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
+| KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | 2023 Final Q4; 2022 Resit Q3 | slides/bayes.pdf slide 14; notes/bayes.md; recordings/week-5-summary.md | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
 
 ## Uncovered Past-Paper Questions
 - None
@@ -144,6 +144,14 @@ knowledge-points/
 - Where it appears in the materials:
 - Linked past-paper questions:
 
+## Material Evidence
+- Lecture or textbook source:
+- PPT or slide source:
+- Notes source:
+- Recording or verbal source:
+- Supplement source:
+- Teacher wording worth preserving:
+
 ## Learning Goal
 - After reading this file, the learner should be able to:
 - Why this topic is hard for beginners:
@@ -160,6 +168,7 @@ knowledge-points/
 - Plain-language idea:
 - Real meaning behind the concept:
 - What this topic is not:
+- Which material explains this intuition best:
 
 ## Core Explanation
 - Plain-language explanation:
@@ -168,6 +177,9 @@ knowledge-points/
 - Why each step makes sense:
 - When this method works:
 - When this method does not work:
+- How the lecture or textbook presents it:
+- How the PPT frames or compresses it:
+- How notes or recordings clarify it:
 
 ## Worked Example
 - Problem:
@@ -185,6 +197,11 @@ knowledge-points/
 - Fast recognition pattern:
 - Solving steps that earn marks:
 - Common trap shown by this question:
+
+## Material-to-Exam Bridge
+- Which material most directly prepares the learner for this past-paper question:
+- What the learner should notice in the material before attempting the question:
+- Which exact phrase, formula, diagram, or example from the material reappears in the exam setting:
 
 ## Common Mistakes
 - Mistake 1:

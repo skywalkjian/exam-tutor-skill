@@ -101,6 +101,12 @@ Read [references/material-processing.md](references/material-processing.md) when
   - prerequisite topic
 - Record source evidence so the learner can trace where the topic came from.
 - Capture formulas, definitions, common problem types, and repeated traps when they appear.
+- Preserve material-specific evidence for each topic:
+  - lecture or textbook explanation
+  - PPT framing and teacher emphasis
+  - notes-based clarification or shortcuts
+  - recordings-based verbal explanation, if available
+  - supplement-based supporting detail
 - Make past-paper coverage a hard constraint:
   - every past-paper question must map to at least one knowledge point
   - if a question is not yet covered, add or split knowledge points until coverage is complete
@@ -112,12 +118,14 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Order topics by learning logic, from prerequisite to dependent topic.
 - Do not sort only by chapter order; sort by what must be learned first.
 - Add explicit past-paper coverage information for each topic.
+- Add explicit material coverage information for each topic.
 - For each topic, include:
   - topic name
   - type
   - prerequisite topics
   - exam relevance
   - linked past-paper questions
+  - linked material evidence
   - source folders or files
   - current status
 - Include a coverage check section that lists any past-paper question not yet covered. The target state is zero uncovered questions.
@@ -159,9 +167,11 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Use a stable slug filename such as `knowledge-points/conditional-probability.md`.
 - Each file must be strong enough that the learner can genuinely understand the topic, not just skim it.
 - Treat each topic file as a compact teaching document, not a thin revision note.
+- Each file must be deeply grounded in the uploaded materials, not only in generic explanation.
 - Each file must explain the topic for a beginner and include:
   - what it is
   - why it matters for the exam
+  - how it is presented in the materials
   - where students usually get confused
   - prerequisites
   - minimal pass-level understanding
@@ -174,10 +184,22 @@ Read [references/material-processing.md](references/material-processing.md) when
   - common mistakes
   - quick self-check questions
   - related next topics
+- Materials integration is mandatory:
+  - cite the lecture, textbook, PPT, notes, recordings, or supplements that explain the topic
+  - explain how different materials complement each other
+  - preserve important teacher wording when it appears to signal exam phrasing
+  - surface conflicts or mismatches between materials instead of hiding them
+- Use materials by role whenever available:
+  - lecture handouts or textbook for core definition and full explanation
+  - PPT for teacher emphasis, headings, summary framing, and likely exam wording
+  - notes for confusion points, shortcuts, or local explanations
+  - recordings for verbal emphasis, repeated warnings, or spoken intuition
+  - supplements for extra examples, formula sheets, or clarifications
 - The past-paper analysis is mandatory:
   - cite the related past-paper questions
   - explain how this knowledge point is tested in those questions
   - show the solving pattern, marking focus, or common trap revealed by those questions
+- Do not write a topic file as if it were standalone textbook knowledge. It must clearly feel derived from this learner's actual course materials.
 - When the topic is abstract or difficult, give intuition before formalism.
 - When the topic is procedural, explain why each step works instead of only listing steps.
 - When formulas appear, explain what each symbol means and when the formula is valid.
@@ -224,6 +246,11 @@ Read [references/material-processing.md](references/material-processing.md) when
   - apply it in exam questions
   - avoid common traps
   - explain it back in their own words
+- A good topic file should also help the learner see:
+  - where this idea appears in the lectures
+  - how the PPT frames it
+  - how the notes or recordings explain it
+  - how it appears in past papers
 - If a topic file still feels too thin to teach the topic properly, expand it before moving on.
 - Depth is especially important for foundational topics because weak foundations break later topics.
 
