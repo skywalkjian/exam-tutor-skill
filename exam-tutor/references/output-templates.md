@@ -67,14 +67,25 @@ knowledge-points/
 - Materials scanned:
 - Current planning mode: Emergency Cram / Short Sprint / Standard Countdown
 
+## Past-Paper Coverage Summary
+- Total past-paper questions found:
+- Covered by knowledge points:
+- Uncovered questions:
+- Coverage status: Pass / Incomplete
+
 ## Ordered Knowledge Points
-| ID | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Main Sources | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
-| KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
+| ID | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Main Sources | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | 2024 Midterm Q2; 2023 Final Q1(b) | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
+| KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | 2023 Final Q4; 2022 Resit Q3 | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
+
+## Uncovered Past-Paper Questions
+- None
+- If not none, list every uncovered question explicitly and do not claim the knowledge graph is complete.
 
 ## Notes
 - Keep the order dependency-first, not chapter-first.
+- Do not allow any past-paper question to remain uncovered.
 - Insert newly discovered prerequisite topics into the correct place instead of appending them at the end.
 ```
 
@@ -131,6 +142,7 @@ knowledge-points/
 - Type: Prerequisite / Supporting / Exam-critical
 - Why it matters:
 - Where it appears in the materials:
+- Linked past-paper questions:
 
 ## What You Must Understand to Pass
 - Minimum pass-level understanding:
@@ -149,6 +161,13 @@ knowledge-points/
 - Problem:
 - Solution:
 - Why the solution works:
+
+## Past-Paper Analysis
+- Question reference:
+- How this topic is tested in that question:
+- Fast recognition pattern:
+- Solving steps that earn marks:
+- Common trap shown by this question:
 
 ## Common Mistakes
 - Mistake 1:
@@ -172,6 +191,7 @@ Use this whenever the learner says a topic still depends on something unknown.
 - `knowledgepointslist.md` updated: Yes / No
 - `study-plan.md` updated: Yes / No
 - Parent topic file updated: Yes / No
+- Past-paper coverage rechecked: Yes / No
 ```
 
 ## Timeline Rules

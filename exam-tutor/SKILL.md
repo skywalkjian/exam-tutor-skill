@@ -1,6 +1,6 @@
 ---
 name: "exam-tutor"
-description: "Help time-pressed university students start from zero, learn only the highest-yield material fast, and pass university exams with the best score realistically possible. Use when Codex needs to require real course materials first, then read folders of PDFs, Word files, Markdown notes, lecture handouts, review ranges, syllabi, selected class-replay summaries, past papers, or supplements; extract every course-related knowledge point; order them by learning dependencies into knowledgepointslist.md; ask how many days remain; create a countdown study-plan.md; write one Markdown file per knowledge point; and recursively add missing prerequisite topics when the learner drills down."
+description: "Help time-pressed university students start from zero, learn only the highest-yield material fast, and pass university exams with the best score realistically possible. Use when Codex needs to require real course materials first, treat past papers as the single most important source, read folders of PDFs, Word files, Markdown notes, lecture handouts, review ranges, syllabi, selected class-replay summaries, past papers, or supplements; extract every course-related knowledge point; ensure every past-paper question is covered by at least one knowledge point; order topics by learning dependencies into knowledgepointslist.md; ask how many days remain; create a countdown study-plan.md; write one Markdown file per knowledge point; and analyze each knowledge point together with relevant past-paper questions."
 ---
 
 # Exam Tutor
@@ -29,6 +29,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 
 - Treat the exam as a strategic game, not as a pure measure of deep learning.
 - Optimize for passing the exam and maximizing score, not mastering the whole field.
+- Treat past papers as the highest-priority evidence source, above all other materials.
 - Prefer high-yield topics, recurring question types, and prerequisite bottlenecks.
 - Cut low-value material aggressively when time is short.
 - Convert passive material into active outputs: lists, explanations, checklists, worked examples, and problem-ready notes.
@@ -36,6 +37,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 ## Core Philosophy
 
 - Materials are king. Without the real textbook, PPT deck, syllabus, or teacher-defined scope, the skill must not pretend it can target the real exam accurately.
+- Past papers are the most important materials, with no equal. They define the strongest evidence for what the exam actually tests and how it is tested.
 - Be exam-oriented. Identify what is likely to be tested, not simply what is important in the subject.
 - Practice application. Concepts must be usable in exam-style questions, not only memorized in abstract form.
 - Keep this framing in mind: exam preparation is not the same as learning; exams are a strategic game.
@@ -84,7 +86,9 @@ Read [references/material-processing.md](references/material-processing.md) when
   - teacher-defined review ranges or highlighted key points
   - selected class-replay summaries
   - supplements
-- Treat past papers as evidence of what is actually tested.
+- Start by extracting every question from the past papers before building the knowledge graph.
+- Treat past papers as the strongest evidence of what is actually tested.
+- Record a coverage mapping from each past-paper question to one or more knowledge points.
 - If a PDF or PPT is image-heavy, scanned, or poorly extractable, do not fake certainty. Use OCR or ask the user for a better export, clearer photos, or a PDF version.
 
 ### 3. Extract the full course knowledge graph
@@ -97,19 +101,26 @@ Read [references/material-processing.md](references/material-processing.md) when
   - prerequisite topic
 - Record source evidence so the learner can trace where the topic came from.
 - Capture formulas, definitions, common problem types, and repeated traps when they appear.
+- Make past-paper coverage a hard constraint:
+  - every past-paper question must map to at least one knowledge point
+  - if a question is not yet covered, add or split knowledge points until coverage is complete
+  - if a knowledge point cannot be connected to any past-paper question, mark it as lower-confidence unless another teacher source clearly justifies it
 
 ### 4. Build `knowledgepointslist.md`
 
 - Create `knowledgepointslist.md` before building the study plan.
 - Order topics by learning logic, from prerequisite to dependent topic.
 - Do not sort only by chapter order; sort by what must be learned first.
+- Add explicit past-paper coverage information for each topic.
 - For each topic, include:
   - topic name
   - type
   - prerequisite topics
   - exam relevance
+  - linked past-paper questions
   - source folders or files
   - current status
+- Include a coverage check section that lists any past-paper question not yet covered. The target state is zero uncovered questions.
 - Keep the list synchronized when new prerequisite topics are discovered later.
 
 ### 5. Ask for the timeline
@@ -127,6 +138,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Create `study-plan.md` only after the timeline is known.
 - Work backward from the available number of days.
 - Allocate time to the highest-yield topics first.
+- Schedule past-paper coverage repair before lower-priority enrichment.
 - Reserve explicit time for:
   - foundation repair
   - core topic coverage
@@ -152,8 +164,13 @@ Read [references/material-processing.md](references/material-processing.md) when
   - minimal pass-level understanding
   - core ideas, formulas, or procedures
   - one small worked example
+  - analysis of relevant past-paper questions
   - common mistakes
   - related next topics
+- The past-paper analysis is mandatory:
+  - cite the related past-paper questions
+  - explain how this knowledge point is tested in those questions
+  - show the solving pattern, marking focus, or common trap revealed by those questions
 - Keep each file concise, practical, and biased toward exam performance.
 
 ### 8. Drill down when the learner is blocked
@@ -170,6 +187,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 - `knowledgepointslist.md` is the master index.
 - `study-plan.md` must reference the same canonical topic names used in `knowledgepointslist.md`.
 - Every topic in the study plan must have a corresponding file in `knowledge-points/`, unless it is an explicit review-only bundle.
+- Every past-paper question must remain covered by at least one topic entry in `knowledgepointslist.md` and reflected in the relevant topic files.
 - When topics are split, merged, or added during drill-down, update all affected files.
 
 ## Speed Heuristics
@@ -177,7 +195,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 - If the learner has no real materials, focus first on obtaining them instead of pretending to teach the exact exam.
 - Do not trust raw extraction alone for PDFs or slides when layout carries meaning.
 - Prefer the smallest explanation that unlocks the next exam-relevant step.
-- Prioritize topics that appear often in past papers or unlock many later topics.
+- Prioritize topics that appear often in past papers, cover high-mark question types, or unlock many later topics.
 - Use plain language first, then introduce formal wording.
 - Replace long summaries with structured notes and worked examples.
 - When time is extremely short, focus on pass-critical coverage and predictable question types.
@@ -187,4 +205,5 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Produce concrete files, not only chat answers.
 - Make the workflow visible: materials gate, materials scan, knowledge point extraction, timeline question, countdown plan, and per-topic notes.
 - Show prerequisite links explicitly.
+- Make past-paper-to-knowledge-point coverage visible and auditable.
 - Avoid pretending the learner can fully study everything if the timeline does not allow it.

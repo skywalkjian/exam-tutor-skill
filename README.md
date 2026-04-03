@@ -11,6 +11,7 @@ Many university exams are driven more by the teacher's slides, textbook wording,
 This skill is built around three ideas:
 
 - Materials are king. Real course materials matter more than generic explanations.
+- Past papers are the most important materials, without exception. Every past-paper question must be covered by the knowledge-point system.
 - Exam orientation matters. The goal is to identify likely testable points, not to cover everything.
 - Application matters. Students need usable explanations and worked examples, not just summaries.
 
@@ -21,6 +22,11 @@ When used well, the skill guides the agent to create:
 - `knowledgepointslist.md`
 - `study-plan.md`
 - `knowledge-points/<topic>.md` files for each knowledge point
+
+It also requires two strict behaviors:
+
+- every past-paper question must map to at least one knowledge point
+- every knowledge-point Markdown file must analyze the related past-paper questions, not just explain the concept in isolation
 
 It also supports drill-down learning: if a learner gets blocked by a missing prerequisite, that prerequisite becomes a first-class knowledge point and is added back into the knowledge map and study plan.
 
@@ -71,7 +77,7 @@ exam-tutor/
 ## Usage Example
 
 ```text
-Use $exam-tutor to review these course materials, build knowledgepointslist.md, ask how many days I have left, and create a high-yield study-plan.md.
+Use $exam-tutor to review these course materials, treat past papers as the most important source, build knowledgepointslist.md so every past-paper question is covered, ask how many days I have left, and create a high-yield study-plan.md.
 ```
 
 ## Publishing Notes

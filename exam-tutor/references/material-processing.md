@@ -9,6 +9,7 @@ Convert each source into reliable exam evidence without losing teacher emphasis,
 ## General Rules
 
 - Prefer the original course material over summaries.
+- When past papers exist, extract and index them first.
 - Keep source references such as page numbers, slide numbers, file names, and section headings.
 - When a source is PDF and `$pdf` is available, invoke `$pdf` before doing exam-specific analysis.
 - Do not rely on text extraction alone when layout, color emphasis, tables, formulas, or diagrams carry meaning.
@@ -49,6 +50,8 @@ Convert each source into reliable exam evidence without losing teacher emphasis,
 ### PDF-specific heuristics
 
 - For past papers, prioritize question stems, repeated patterns, mark allocations, and solution structure.
+- For past papers, also preserve question identifiers such as year, term, section, question number, and sub-question labels.
+- For past papers, extract enough detail to map each question to one or more knowledge points later.
 - For textbooks, prioritize definitions, theorem statements, worked examples, summary boxes, and end-of-chapter exercises.
 - For teacher-made handouts, prioritize bolded text, repeated warning notes, and anything labeled review, summary, key point, or example.
 
@@ -120,6 +123,15 @@ For each high-yield point, keep:
 - source quote or paraphrase
 - whether it looks definitional, procedural, or exam-applied
 - extraction confidence
+
+For each past-paper question, also keep:
+
+- year and exam name
+- question number
+- sub-question labels if present
+- tested skill or likely knowledge point
+- marks or weight if visible
+- any recurring trap or solving pattern
 
 ## Failure Cases
 
