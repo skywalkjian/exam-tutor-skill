@@ -74,7 +74,7 @@ knowledge-points/
 - Coverage status: Pass / Incomplete
 
 ## Ordered Knowledge Points
-| ID | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Linked Material Evidence | Main Sources | Status |
+| Reading Order | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Linked Material Evidence | Main Sources | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | 2024 Midterm Q2; 2023 Final Q1(b) | lecture-03.pdf p.12; week-3-slides.pdf slide 8; notes/probability.md | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
 | KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | 2023 Final Q4; 2022 Resit Q3 | slides/bayes.pdf slide 14; notes/bayes.md; recordings/week-5-summary.md | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
@@ -136,10 +136,11 @@ knowledge-points/
 ## 3. `knowledge-points/<slug>.md`
 
 ```markdown
-# Topic: Conditional Probability
+# KP-01 Topic: Conditional Probability
 
 ## Role in the Course
 - Type: Prerequisite / Supporting / Exam-critical
+- Reading order:
 - Why it matters:
 - Where it appears in the materials:
 - Linked past-paper questions:
@@ -164,37 +165,54 @@ knowledge-points/
 - Required first:
 - Optional supporting ideas:
 
-## Intuition First
-- Plain-language idea:
-- Real meaning behind the concept:
-- What this topic is not:
+## Core Teaching Section
+- This is the most important and longest part of the file.
+- Spend most of the writing effort here.
+- Keep the logic smooth and easy to follow.
+
+## 1. The Problem
+- Start with an engineering dilemma, physical paradox, or practical failure case:
+- Why this problem matters:
+- What goes wrong if the learner does not understand this topic:
+
+## 2. The Intuition
+- Give a daily-life analogy:
+- Explain the abstract idea through physical intuition:
 - Which material explains this intuition best:
 
-## Core Explanation
-- Plain-language explanation:
+## 3. Concrete STEM Case
+- Use a real engineering, physical, or STEM scenario:
+- Input:
+- Output:
+- What changes in the middle:
+- How this connects to the real concept:
+
+## 4. The Rigor
 - Formal definition or formula:
-- Step-by-step procedure:
-- Why each step makes sense:
-- When this method works:
-- When this method does not work:
+- Explain every symbol:
+- Explain the physical or logical meaning of each symbol:
+- Step-by-step derivation or logic breakdown:
+- When this formula or method works:
+- When this formula or method does not work:
 - How the lecture or textbook presents it:
 - How the PPT frames or compresses it:
 - How notes or recordings clarify it:
+- Avoid unnecessary new terminology:
+- If a new term must appear, explain it immediately in plain Chinese:
 
-## Worked Example
+## 5. Worked Example
 - Problem:
-- Solution:
+- Full solution:
 - Why the solution works:
-
-## Variation or Contrast Case
-- Slightly different problem:
-- What changes:
-- Why students often get this version wrong:
+- Why each step is necessary:
 
 ## Past-Paper Analysis
+- If relevant, copy or restate the past-paper question first:
 - Question reference:
+- Full question text or essential content:
 - How this topic is tested in that question:
 - Fast recognition pattern:
+- Detailed solution and reasoning:
 - Solving steps that earn marks:
 - Common trap shown by this question:
 

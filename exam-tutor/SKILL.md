@@ -115,11 +115,15 @@ Read [references/material-processing.md](references/material-processing.md) when
 ### 4. Build `knowledgepointslist.md`
 
 - Create `knowledgepointslist.md` before building the study plan.
-- Order topics by learning logic, from prerequisite to dependent topic.
-- Do not sort only by chapter order; sort by what must be learned first.
+- Order topics primarily by teaching order and reading order as presented in the course materials.
+- Assign explicit sequential IDs that reflect the recommended reading order, such as `KP-01`, `KP-02`, `KP-03`.
+- Preserve the lecture sequence whenever possible, then refine within that sequence by prerequisite logic.
+- Do not output an unordered concept dump.
+- If the teaching order conflicts with strict prerequisite order, keep the reading order close to the teaching order but clearly mark prerequisite dependencies.
 - Add explicit past-paper coverage information for each topic.
 - Add explicit material coverage information for each topic.
 - For each topic, include:
+  - reading-order ID
   - topic name
   - type
   - prerequisite topics
@@ -165,9 +169,27 @@ Read [references/material-processing.md](references/material-processing.md) when
 
 - Create one file per topic under `knowledge-points/`.
 - Use a stable slug filename such as `knowledge-points/conditional-probability.md`.
+- Follow the same numbered reading order as `knowledgepointslist.md`.
+- If helpful, prefix the displayed title with the reading-order ID, such as `KP-03 Conditional Probability`.
 - Each file must be strong enough that the learner can genuinely understand the topic, not just skim it.
 - Treat each topic file as a compact teaching document, not a thin revision note.
 - Each file must be deeply grounded in the uploaded materials, not only in generic explanation.
+- The explanatory body is the single most important part of the file and must receive the most space, the clearest logic, and the most effort.
+- Do not let references, checklists, or coverage tables crowd out the real teaching content.
+- The core teaching flow must be smooth, explicit, and always follow this order:
+  1. `The Problem`
+  2. `The Intuition`
+  3. `Concrete STEM Case`
+  4. `The Rigor`
+  5. `Worked Example`
+  6. `Past-Paper Analysis`, if relevant
+- Build the main explanation like a real lesson:
+  - first introduce the pain point, paradox, or engineering difficulty
+  - then build intuition with a familiar analogy
+  - then land the idea in a concrete STEM scenario
+  - then introduce formulas, symbols, derivations, or code logic
+  - then solve one full example
+  - then connect the topic to past-paper questions
 - Each file must explain the topic for a beginner and include:
   - what it is
   - why it matters for the exam
@@ -175,15 +197,22 @@ Read [references/material-processing.md](references/material-processing.md) when
   - where students usually get confused
   - prerequisites
   - minimal pass-level understanding
-  - intuitive explanation in plain language
+  - a problem-first introduction
+  - an intuition-building analogy
+  - a concrete engineering, physical, or STEM case
   - formal definitions, formulas, or procedures
-  - step-by-step reasoning
-  - at least one worked example
-  - at least one variation or contrast case
-  - analysis of relevant past-paper questions
+  - at least one complete worked example
+  - detailed past-paper analysis when relevant
   - common mistakes
   - quick self-check questions
   - related next topics
+- Language requirements are strict:
+  - write in Chinese by default
+  - stay rigorous but easy to understand
+  - avoid introducing new terminology unless it is necessary
+  - when a new term is unavoidable, explain it immediately in plain language
+  - prefer short, concrete sentences over dense academic phrasing
+  - do not hide behind jargon
 - Materials integration is mandatory:
   - cite the lecture, textbook, PPT, notes, recordings, or supplements that explain the topic
   - explain how different materials complement each other
@@ -199,10 +228,20 @@ Read [references/material-processing.md](references/material-processing.md) when
   - cite the related past-paper questions
   - explain how this knowledge point is tested in those questions
   - show the solving pattern, marking focus, or common trap revealed by those questions
+- When a past-paper question is relevant, reproduce the question text or the essential question content before analyzing it.
+- After reproducing the question, explain it in detail instead of giving only a short answer sketch.
 - Do not write a topic file as if it were standalone textbook knowledge. It must clearly feel derived from this learner's actual course materials.
-- When the topic is abstract or difficult, give intuition before formalism.
-- When the topic is procedural, explain why each step works instead of only listing steps.
-- When formulas appear, explain what each symbol means and when the formula is valid.
+- For `The Problem`, do not start with a definition. Start with an engineering dilemma, a physical paradox, or a practical failure case.
+- For `The Intuition`, use a familiar daily-life analogy to convert the abstract idea into an instinctive picture.
+- For `Concrete STEM Case`, make the analogy land in a real engineering or physical scenario and explain:
+  - what the input is
+  - what the output is
+  - what physical or logical change happens in the middle
+- For `The Rigor`, introduce formulas only after the intuition is clear.
+- When formulas appear, explain what each symbol means, what physical quantity it represents, and when the formula is valid.
+- If code logic is relevant, explain the code as a physical or logical process, not as raw syntax only.
+- For `Worked Example`, solve a full concrete example step by step.
+- For `Past-Paper Analysis`, connect the abstract idea back to an actual exam task and explain the reasoning in detail.
 - Include boundary conditions:
   - what the concept is
   - what it is not
@@ -240,6 +279,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 ## Topic File Quality Bar
 
 - Do not produce shallow topic files that only list definitions and one example.
+- Do not produce topic files where metadata is longer than the actual explanation.
 - A good topic file should help the learner:
   - understand the idea
   - recognize when to use it
@@ -251,6 +291,7 @@ Read [references/material-processing.md](references/material-processing.md) when
   - how the PPT frames it
   - how the notes or recordings explain it
   - how it appears in past papers
+- A good topic file should read like a mini-lesson, not like a checklist with a little commentary.
 - If a topic file still feels too thin to teach the topic properly, expand it before moving on.
 - Depth is especially important for foundational topics because weak foundations break later topics.
 
