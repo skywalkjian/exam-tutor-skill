@@ -157,21 +157,36 @@ Read [references/material-processing.md](references/material-processing.md) when
 
 - Create one file per topic under `knowledge-points/`.
 - Use a stable slug filename such as `knowledge-points/conditional-probability.md`.
+- Each file must be strong enough that the learner can genuinely understand the topic, not just skim it.
+- Treat each topic file as a compact teaching document, not a thin revision note.
 - Each file must explain the topic for a beginner and include:
   - what it is
   - why it matters for the exam
+  - where students usually get confused
   - prerequisites
   - minimal pass-level understanding
-  - core ideas, formulas, or procedures
-  - one small worked example
+  - intuitive explanation in plain language
+  - formal definitions, formulas, or procedures
+  - step-by-step reasoning
+  - at least one worked example
+  - at least one variation or contrast case
   - analysis of relevant past-paper questions
   - common mistakes
+  - quick self-check questions
   - related next topics
 - The past-paper analysis is mandatory:
   - cite the related past-paper questions
   - explain how this knowledge point is tested in those questions
   - show the solving pattern, marking focus, or common trap revealed by those questions
-- Keep each file concise, practical, and biased toward exam performance.
+- When the topic is abstract or difficult, give intuition before formalism.
+- When the topic is procedural, explain why each step works instead of only listing steps.
+- When formulas appear, explain what each symbol means and when the formula is valid.
+- Include boundary conditions:
+  - what the concept is
+  - what it is not
+  - when a similar-looking method should not be used
+- End each topic file with a short mastery checklist the learner can use to decide whether they truly understand the topic.
+- Keep each file practical and exam-oriented, but do not make it so short that understanding is sacrificed.
 
 ### 8. Drill down when the learner is blocked
 
@@ -199,6 +214,18 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Use plain language first, then introduce formal wording.
 - Replace long summaries with structured notes and worked examples.
 - When time is extremely short, focus on pass-critical coverage and predictable question types.
+
+## Topic File Quality Bar
+
+- Do not produce shallow topic files that only list definitions and one example.
+- A good topic file should help the learner:
+  - understand the idea
+  - recognize when to use it
+  - apply it in exam questions
+  - avoid common traps
+  - explain it back in their own words
+- If a topic file still feels too thin to teach the topic properly, expand it before moving on.
+- Depth is especially important for foundational topics because weak foundations break later topics.
 
 ## Output Expectations
 

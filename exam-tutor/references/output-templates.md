@@ -144,6 +144,10 @@ knowledge-points/
 - Where it appears in the materials:
 - Linked past-paper questions:
 
+## Learning Goal
+- After reading this file, the learner should be able to:
+- Why this topic is hard for beginners:
+
 ## What You Must Understand to Pass
 - Minimum pass-level understanding:
 - What can be ignored for now:
@@ -152,15 +156,28 @@ knowledge-points/
 - Required first:
 - Optional supporting ideas:
 
+## Intuition First
+- Plain-language idea:
+- Real meaning behind the concept:
+- What this topic is not:
+
 ## Core Explanation
 - Plain-language explanation:
 - Formal definition or formula:
 - Step-by-step procedure:
+- Why each step makes sense:
+- When this method works:
+- When this method does not work:
 
 ## Worked Example
 - Problem:
 - Solution:
 - Why the solution works:
+
+## Variation or Contrast Case
+- Slightly different problem:
+- What changes:
+- Why students often get this version wrong:
 
 ## Past-Paper Analysis
 - Question reference:
@@ -172,6 +189,19 @@ knowledge-points/
 ## Common Mistakes
 - Mistake 1:
 - Mistake 2:
+- How to avoid these mistakes:
+
+## Quick Self-Check
+- Question 1:
+- Question 2:
+- Question 3:
+
+## Mastery Checklist
+- [ ] I can explain this topic in plain language.
+- [ ] I know when to use it.
+- [ ] I know when not to use it.
+- [ ] I can solve a standard exam question on it.
+- [ ] I can spot the common trap.
 
 ## Links
 - Parent topics unlocked by this topic:
