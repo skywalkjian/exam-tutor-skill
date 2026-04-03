@@ -9,7 +9,7 @@ description: "Help time-pressed university students start from zero, learn only 
 
 Turn raw course materials into a zero-to-pass, score-aware exam system for university students. Focus on minimum viable mastery, exam relevance, and speed rather than complete textbook coverage.
 
-Write the skill instructions and generated files in English unless the user explicitly asks for another language.
+Write the skill instructions and generated files in Chinese by default. Preserve important English technical terms, formulas, symbols, and original course wording when precision matters.
 
 Read [references/output-templates.md](references/output-templates.md) for the materials checklist, missing-materials response, folder conventions, file outputs, and Markdown templates.
 Read [references/material-processing.md](references/material-processing.md) when working with PDFs, PowerPoint decks, or mixed-format course materials.

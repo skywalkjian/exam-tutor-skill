@@ -1,4 +1,4 @@
 interface:
   display_name: "Exam Tutor"
   short_description: "Past-paper-first university exam prep from real materials"
-  default_prompt: "Use $exam-tutor to check my university course materials, treat past papers as the most important source, extract knowledge points that cover every past-paper question, ask for my timeline, and create a high-yield study-plan.md."
+  default_prompt: "Use $exam-tutor to review my university course materials in Chinese, treat past papers as the most important source, extract knowledge points that cover every past-paper question, ask for my timeline, and create a high-yield study-plan.md."
