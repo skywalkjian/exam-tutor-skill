@@ -1,6 +1,6 @@
 ---
 name: "exam-tutor"
-description: "Help time-pressed university students start from zero, learn only the highest-yield material fast, and pass university exams with the best score realistically possible. Use when Codex needs to require real course materials first, treat past papers as the single most important source, read folders of PDFs, Word files, Markdown notes, lecture handouts, review ranges, syllabi, selected class-replay summaries, past papers, or supplements; extract every course-related knowledge point; ensure every past-paper question is covered by at least one knowledge point; order topics by learning dependencies into knowledgepointslist.md; ask how many days remain; create a countdown study-plan.md; write one Markdown file per knowledge point; and analyze each knowledge point together with relevant past-paper questions."
+description: "Help time-pressed university students start from zero, learn only the highest-yield material fast, and pass university exams with the best score realistically possible. Use when Codex needs to require real course materials first, treat past papers as the single most important source, read folders of PDFs, Word files, Markdown notes, lecture handouts, review ranges, syllabi, selected class-replay summaries, past papers, or supplements; invoke $pdf first for PDF extraction and layout-sensitive review whenever PDF materials are present and $pdf is available; extract every course-related knowledge point; ensure every past-paper question is covered by at least one knowledge point; order topics by learning dependencies into knowledgepointslist.md; ask how many days remain; create a countdown study-plan.md; write one Markdown file per knowledge point; and analyze each knowledge point together with relevant past-paper questions."
 ---
 
 # Exam Tutor
@@ -16,8 +16,8 @@ Read [references/material-processing.md](references/material-processing.md) when
 
 ## Companion Skills
 
-- If `$pdf` is available, use it for PDF extraction, rendering, and layout-sensitive review.
-- Do not assume `$pdf` is installed. Fall back to the built-in PDF workflow in [references/material-processing.md](references/material-processing.md) when it is not available.
+- Always invoke `$pdf` before analyzing any PDF material if `$pdf` is available.
+- If `$pdf` is not available, fall back to the built-in PDF workflow in [references/material-processing.md](references/material-processing.md).
 
 ## Target Learner
 
@@ -69,7 +69,7 @@ Read [references/material-processing.md](references/material-processing.md) when
 - Support `.pdf`, `.pptx`, `.ppt`, `.docx`, `.md`, `.txt`, and other easy-to-read text formats.
 - Read Markdown and text files directly.
 - For PDF files, follow the PDF workflow in [references/material-processing.md](references/material-processing.md):
-  - invoke `$pdf` first if it is available
+  - always invoke `$pdf` first if it is available
   - detect whether the PDF is text-based or scanned
   - extract text first
   - render pages when layout, diagrams, tables, or emphasis cues matter
@@ -78,7 +78,7 @@ Read [references/material-processing.md](references/material-processing.md) when
   - prefer `.pptx`
   - extract slide titles, bullets, speaker notes, and slide numbers
   - inspect slide visuals when meaning depends on diagrams, tables, or highlighted text
-  - convert legacy `.ppt` to `.pptx` or PDF when needed, then use `$pdf` if available and the result is PDF
+  - convert legacy `.ppt` to `.pptx` or PDF when needed, then always invoke `$pdf` if available and the result is PDF
 - For Word files, extract the document text before analysis.
 - If the material set is large, process in this priority order:
   - past papers

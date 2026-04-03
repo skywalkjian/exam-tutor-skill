@@ -11,7 +11,7 @@ Convert each source into reliable exam evidence without losing teacher emphasis,
 - Prefer the original course material over summaries.
 - When past papers exist, extract and index them first.
 - Keep source references such as page numbers, slide numbers, file names, and section headings.
-- When a source is PDF and `$pdf` is available, invoke `$pdf` before doing exam-specific analysis.
+- When a source is PDF and `$pdf` is available, always invoke `$pdf` before doing exam-specific analysis.
 - Do not rely on text extraction alone when layout, color emphasis, tables, formulas, or diagrams carry meaning.
 - If extraction quality is poor, say so clearly and ask for a better export instead of pretending confidence.
 
@@ -27,7 +27,7 @@ Convert each source into reliable exam evidence without losing teacher emphasis,
 
 ### Steps
 
-1. If `$pdf` is available, invoke `$pdf` and follow its extraction and rendering workflow.
+1. If `$pdf` is available, always invoke `$pdf` and follow its extraction and rendering workflow before any exam-specific reasoning.
 2. Detect the PDF type.
    - If selectable text exists, treat it as text-based.
    - If pages are image-only, treat it as scanned.
@@ -86,7 +86,7 @@ Convert each source into reliable exam evidence without losing teacher emphasis,
 3. For `.ppt`:
    - convert to `.pptx` or PDF first when possible
    - if conversion is not possible, ask the user to export it
-   - if converted to PDF and `$pdf` is available, invoke `$pdf`
+   - if converted to PDF and `$pdf` is available, always invoke `$pdf`
 4. Inspect visuals whenever the slide meaning depends on:
    - diagrams
    - charts
