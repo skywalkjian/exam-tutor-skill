@@ -1,4 +1,4 @@
 interface:
-  display_name: "Exam Tutor"
-  short_description: "Past-paper-first university exam prep from real materials"
-  default_prompt: "Use $exam-tutor to review my university course materials in Chinese, treat past papers as the most important source, extract knowledge points that cover every past-paper question, ask for my timeline, and create a high-yield study-plan.md."
+  display_name: "考试辅导"
+  short_description: "以真题为先、基于真实材料的大学考试备考"
+  default_prompt: "使用 $exam-tutor 以中文审查我的大学课程材料，将历年真题作为最重要的来源，提取覆盖每道真题的知识点，询问我的时间线，并创建高收益的 study-plan.md。"

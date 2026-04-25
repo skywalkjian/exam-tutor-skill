@@ -1,144 +1,144 @@
-# Material Processing
+# 材料处理
 
-Use this reference when the learner provides course materials in PDF, PowerPoint, Word, Markdown, or mixed folders.
+当学习者提供 PDF、PowerPoint、Word、Markdown 或混合格式文件夹的课程材料时，使用此参考。
 
-## Goal
+## 目标
 
-Convert each source into reliable exam evidence without losing teacher emphasis, page context, or diagram meaning.
+将每个来源转化为可靠的考试证据，不丢失老师强调的内容、页面上下文或图表含义。
 
-## General Rules
+## 通用规则
 
-- Prefer the original course material over summaries.
-- When past papers exist, extract and index them first.
-- Keep source references such as page numbers, slide numbers, file names, and section headings.
-- When a source is PDF and `$pdf` is available, always invoke `$pdf` before doing exam-specific analysis.
-- Do not rely on text extraction alone when layout, color emphasis, tables, formulas, or diagrams carry meaning.
-- If extraction quality is poor, say so clearly and ask for a better export instead of pretending confidence.
+- 优先使用原始课程材料而非摘要。
+- 当存在历年真题时，首先提取并索引它们。
+- 保留来源引用，如页码、幻灯片编号、文件名和章节标题。
+- 当来源是 PDF 且 `$pdf` 可用时，始终在进行考试相关分析之前先调用 `$pdf`。
+- 当版面、颜色强调、表格、公式或图表承载含义时，不要仅依赖文本提取。
+- 如果提取质量差，明确说明并请求更好的导出版本，而非假装有信心。
 
-## PDF Workflow
+## PDF 工作流
 
-### When to use
+### 使用场景
 
-- Textbook chapters
-- Exported PPT slide decks saved as PDF
-- Syllabus files
-- Past papers
-- Scanned handouts
+- 教材章节
+- 导出为 PDF 的 PPT 幻灯片
+- 教学大纲文件
+- 历年真题
+- 扫描版讲义
 
-### Steps
+### 步骤
 
-1. If `$pdf` is available, always invoke `$pdf` and follow its extraction and rendering workflow before any exam-specific reasoning.
-2. Detect the PDF type.
-   - If selectable text exists, treat it as text-based.
-   - If pages are image-only, treat it as scanned.
-3. Extract text first for fast indexing.
-4. Render pages when any of these matter:
-   - tables
-   - formulas
-   - diagrams
-   - highlighted teacher emphasis
-   - strange extraction results
-5. Preserve source anchors:
-   - file name
-   - page number
-   - chapter or section title
-6. Mark confidence:
-   - `high` for clean text-based extraction
-   - `medium` for mixed extraction needing visual confirmation
-   - `low` for scanned or damaged PDFs
+1. 如果 `$pdf` 可用，始终先调用 `$pdf` 并遵循其提取和渲染工作流，然后再进行任何考试相关推理。
+2. 检测 PDF 类型。
+   - 如果存在可选择的文本，视为基于文本的。
+   - 如果页面仅为图片，视为扫描件。
+3. 先提取文本用于快速索引。
+4. 在以下情况重要时渲染页面：
+   - 表格
+   - 公式
+   - 图表
+   - 老师高亮强调
+   - 提取结果异常
+5. 保留来源锚点：
+   - 文件名
+   - 页码
+   - 章节或小节标题
+6. 标记置信度：
+   - `高` — 干净的基于文本的提取
+   - `中` — 需要视觉确认的混合提取
+   - `低` — 扫描或损坏的 PDF
 
-### PDF-specific heuristics
+### PDF 专用启发式
 
-- For past papers, prioritize question stems, repeated patterns, mark allocations, and solution structure.
-- For past papers, also preserve question identifiers such as year, term, section, question number, and sub-question labels.
-- For past papers, extract enough detail to map each question to one or more knowledge points later.
-- For textbooks, prioritize definitions, theorem statements, worked examples, summary boxes, and end-of-chapter exercises.
-- For teacher-made handouts, prioritize bolded text, repeated warning notes, and anything labeled review, summary, key point, or example.
+- 对于历年真题，优先关注题干、反复出现的模式、分值分配和解答结构。
+- 对于历年真题，还需保留题目标识，如年份、学期、章节、题号和子题标签。
+- 对于历年真题，提取足够的细节以便后续将每道题映射到一个或多个知识点。
+- 对于教材，优先关注定义、定理陈述、解题示例、总结框和章末练习。
+- 对于老师制作的讲义，优先关注加粗文本、反复出现的警告注释，以及标记为复习、总结、重点或示例的内容。
 
-### If the PDF is scanned
+### 如果 PDF 是扫描件
 
-- Prefer OCR if available.
-- If OCR is unavailable or poor, ask the user for:
-  - a clearer PDF
-  - higher-resolution photos
-  - the original digital file
-  - a teacher-exported PDF
+- 如有 OCR 可用则优先使用。
+- 如果 OCR 不可用或效果差，请用户提供：
+  - 更清晰的 PDF
+  - 更高分辨率的照片
+  - 原始数字文件
+  - 老师导出的 PDF
 
-## PowerPoint Workflow
+## PowerPoint 工作流
 
-### Supported formats
+### 支持的格式
 
-- Prefer `.pptx`
-- Accept `.ppt`, but treat it as legacy and convert it first when practical
+- 优先使用 `.pptx`
+- 接受 `.ppt`，但视为旧版格式，在可行时先转换
 
-### Steps
+### 步骤
 
-1. Identify the deck type.
-   - text-heavy lecture slides
-   - diagram-heavy explanation slides
-   - summary or review slides
-   - problem-solving slides
-2. For `.pptx`:
-   - extract slide titles
-   - extract bullet points
-   - extract speaker notes if they exist
-   - preserve slide numbers
-3. For `.ppt`:
-   - convert to `.pptx` or PDF first when possible
-   - if conversion is not possible, ask the user to export it
-   - if converted to PDF and `$pdf` is available, always invoke `$pdf`
-4. Inspect visuals whenever the slide meaning depends on:
-   - diagrams
-   - charts
-   - tables
-   - equation layout
-   - colored or animated emphasis
-5. Treat each slide as exam evidence, not just presentation content.
+1. 识别幻灯片类型。
+   - 文字密集的讲课幻灯片
+   - 图表密集的解释幻灯片
+   - 总结或复习幻灯片
+   - 解题幻灯片
+2. 对于 `.pptx`：
+   - 提取幻灯片标题
+   - 提取要点内容
+   - 提取演讲者备注（如存在）
+   - 保留幻灯片编号
+3. 对于 `.ppt`：
+   - 在可能的情况下先转换为 `.pptx` 或 PDF
+   - 如果无法转换，请用户导出
+   - 如果转换为 PDF 且 `$pdf` 可用，始终调用 `$pdf`
+4. 当幻灯片含义依赖于以下内容时检查视觉元素：
+   - 图表
+   - 图形
+   - 表格
+   - 公式排版
+   - 颜色或动画强调
+5. 将每张幻灯片视为考试证据，而非仅是演示内容。
 
-### PPT-specific heuristics
+### PPT 专用启发式
 
-- Prioritize:
-  - title slides that define the unit
-  - summary slides
-  - slides with example problems
-  - slides with formulas or derivations
-  - slides with highlighted or colored text
-  - slides repeated in class notes or past-paper topics
-- If a slide is sparse, inspect neighboring slides before concluding it is low value.
-- If speaker notes exist, treat them as high-value teacher intent.
+- 优先关注：
+  - 定义单元的标题幻灯片
+  - 总结幻灯片
+  - 包含例题的幻灯片
+  - 包含公式或推导的幻灯片
+  - 包含高亮或彩色文本的幻灯片
+  - 在课堂笔记或真题主题中重复出现的幻灯片
+- 如果某张幻灯片内容稀疏，在判定其低价值之前先检查相邻幻灯片。
+- 如果存在演讲者备注，将其视为高价值的老师意图。
 
-## Word and Markdown Workflow
+## Word 和 Markdown 工作流
 
-- Read `.docx`, `.md`, and `.txt` directly when possible.
-- Preserve headings and list structure.
-- Keep explicit teacher wording when it signals likely exam phrasing.
+- 在可能的情况下直接读取 `.docx`、`.md` 和 `.txt`。
+- 保留标题和列表结构。
+- 当老师的用语暗示可能的考试措辞时予以保留。
 
-## What to Save During Extraction
+## 提取过程中需要保存的内容
 
-For each high-yield point, keep:
+对于每个高收益知识点，保留：
 
-- canonical topic name
-- source file
-- page or slide number
-- source quote or paraphrase
-- whether it looks definitional, procedural, or exam-applied
-- extraction confidence
+- 规范的主题名称
+- 来源文件
+- 页码或幻灯片编号
+- 来源原文引用或意译
+- 是定义型、流程型还是考试应用型
+- 提取置信度
 
-For each past-paper question, also keep:
+对于每道真题，还需保留：
 
-- year and exam name
-- question number
-- sub-question labels if present
-- tested skill or likely knowledge point
-- marks or weight if visible
-- any recurring trap or solving pattern
+- 年份和考试名称
+- 题号
+- 子题标签（如有）
+- 考查的技能或可能的知识点
+- 分值或权重（如可见）
+- 反复出现的陷阱或解题模式
 
-## Failure Cases
+## 失败情况
 
-Stop and ask for better input if:
+在以下情况停止并请求更好的输入：
 
-- the PDF is unreadable
-- the PPT is legacy `.ppt` and cannot be converted
-- the material is mostly photos with missing pages
-- formulas are broken by extraction
-- diagrams are essential but unreadable
+- PDF 无法阅读
+- PPT 是旧版 `.ppt` 且无法转换
+- 材料大部分是缺页的照片
+- 公式被提取过程破坏
+- 图表是关键的但无法阅读

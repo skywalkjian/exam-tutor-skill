@@ -1,56 +1,65 @@
-# Output Templates
+# 输出模板
 
-Use these templates to create the concrete files and gating responses that this skill should maintain.
+使用这些模板创建此技能应维护的具体文件和关卡回复。
 
-## Materials Gate
+## 材料关卡
 
-Use this checklist before any planning or knowledge extraction:
-
-```markdown
-## Materials Checklist
-- [ ] Textbook or course reading
-- [ ] PPT slides
-- [ ] Teacher-highlighted key points or review scope
-- [ ] Syllabus or exam outline
-- [ ] Past papers, if available
-- [ ] Class notes, if available
-```
-
-## Standard Missing-Materials Response
-
-Use this response when the learner wants exam prep help but has not uploaded real course materials yet:
+在任何规划或知识提取之前使用此清单：
 
 ```markdown
-I understand that you want to prepare for the exam, but there is one critical issue first: I need your textbook, PPT slides, or syllabus to help you effectively.
-
-University exams are usually based on what the teacher taught in class and on the specific knowledge points shown in the textbook or slides. If I help only from generic knowledge, three problems appear immediately:
-
-- My wording may not match the teacher's wording.
-- The topics I emphasize may not be the topics your teacher will test.
-- The examples I choose may be different from the textbook and exam style.
-
-Please upload your course materials first. Even PPT slides, photos of the review scope, or a syllabus screenshot are enough to start.
+## 材料清单
+- [ ] 教材或课程阅读材料
+- [ ] PPT 幻灯片
+- [ ] 老师划重点或复习范围
+- [ ] 教学大纲或考试提纲
+- [ ] 历年真题（如有）
+- [ ] 课堂笔记（如有）
 ```
 
-## Expected Input Layout
+## 标准缺少材料回复
 
-Prefer a folder structure like this when the user provides materials:
+当学习者想要考试备考帮助但尚未上传真实课程材料时使用此回复：
+
+```markdown
+我理解你想要准备考试，但首先有一个关键问题：我需要你的教材、PPT 幻灯片或教学大纲才能有效地帮助你。
+
+大学考试通常基于老师课堂上教的内容和教材或幻灯片中展示的特定知识点。如果我仅凭通用知识帮助你，会立即出现三个问题：
+
+- 我的措辞可能与老师的措辞不匹配。
+- 我强调的主题可能不是你的老师要考的主题。
+- 我选择的例子可能与教材和考试风格不同。
+
+请先上传你的课程材料。即使是 PPT 幻灯片、复习范围的照片或教学大纲截图也足以开始。
+```
+
+## 预期输入结构
+
+在工作流开始时，如果工作目录中尚无材料文件夹，主动创建以下目录结构：
 
 ```text
 materials/
-  lectures/
-  notes/
-  recordings/
-  past-papers/
-  supplements/
+  lectures/      ← 教材、讲义、课件 PDF
+  notes/         ← 课堂笔记、个人笔记
+  recordings/    ← 课堂录音摘要
+  past-papers/   ← 历年真题
+  supplements/   ← 补充材料、参考书、习题集
 ```
 
-The actual folder names can vary. Map them to the nearest category and continue.
+创建后向用户说明每个文件夹的用途，请用户将材料放入对应文件夹。如果用户已上传材料但未分类，帮助将文件移动到对应的子文件夹中。实际文件夹名称可以不同，将它们映射到最接近的类别并继续。
 
-## Expected Output Layout
+## 预期输出结构
 
 ```text
+_analysis/                ← Agent 团队分析产出（中间结果）
+  past-paper-analysis.md        ← 第一波：真题深度分析
+  slides-notes-analysis.md      ← 第一波：课件与笔记分析
+  supplement-analysis.md        ← 第一波：补充材料分析
+  lecture-analysis-1.md          ← 第二波：讲义分析（批次 1，真题引导）
+  lecture-analysis-2.md          ← 第二波：讲义分析（批次 2，真题引导）
+  ...
+  quality-review.md
 knowledgepointslist.md
+past-paper-solutions.md      ← 每道真题的完整解析（按知识点分类）
 study-plan.md
 knowledge-points/
   topic-one.md
@@ -60,207 +69,259 @@ knowledge-points/
 ## 1. `knowledgepointslist.md`
 
 ```markdown
-# Knowledge Points List
+# 知识点列表
 
-## Course
-- Name:
-- Materials scanned:
-- Current planning mode: Emergency Cram / Short Sprint / Standard Countdown
+## 课程
+- 名称：
+- 已扫描材料：
+- 当前规划模式：紧急突击 / 短期冲刺 / 标准倒计时
 
-## Past-Paper Coverage Summary
-- Total past-paper questions found:
-- Covered by knowledge points:
-- Uncovered questions:
-- Coverage status: Pass / Incomplete
+## 真题覆盖摘要
+- 发现的真题总数：
+- 已被知识点覆盖：
+- 未覆盖的题目：
+- 覆盖状态：通过 / 未完成
 
-## Ordered Knowledge Points
-| Reading Order | Topic | Type | Prerequisites | Why Learn It Now | Exam Relevance | Linked Past-Paper Questions | Linked Material Evidence | Main Sources | Status |
+## 有序知识点
+| 阅读顺序 | 主题 | 类型 | 前置知识 | 为何现在学 | 考试相关性 | 关联真题 | 关联材料证据 | 主要来源 | 状态 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| KP-01 | Conditional Probability | Prerequisite | Basic probability, event notation | Unlocks Bayes theorem and word problems | High | 2024 Midterm Q2; 2023 Final Q1(b) | lecture-03.pdf p.12; week-3-slides.pdf slide 8; notes/probability.md | lectures/week-3.pdf; past-papers/2024-midterm.pdf | Not started |
-| KP-02 | Bayes Theorem | Exam-critical | Conditional Probability | Frequent exam target | High | 2023 Final Q4; 2022 Resit Q3 | slides/bayes.pdf slide 14; notes/bayes.md; recordings/week-5-summary.md | notes/bayes.md; past-papers/finals-2023.pdf | Not started |
+| KP-01 | 条件概率 | 前置 | 基础概率、事件表示法 | 解锁贝叶斯定理和应用题 | 高 | 2024 期中 Q2；2023 期末 Q1(b) | lecture-03.pdf p.12；week-3-slides.pdf 第8张；notes/probability.md | lectures/week-3.pdf；past-papers/2024-midterm.pdf | 未开始 |
+| KP-02 | 贝叶斯定理 | 考试关键 | 条件概率 | 频繁考试目标 | 高 | 2023 期末 Q4；2022 补考 Q3 | slides/bayes.pdf 第14张；notes/bayes.md；recordings/week-5-summary.md | notes/bayes.md；past-papers/finals-2023.pdf | 未开始 |
 
-## Uncovered Past-Paper Questions
-- None
-- If not none, list every uncovered question explicitly and do not claim the knowledge graph is complete.
+## 未覆盖的真题
+- 无
+- 如果不为空，明确列出每道未覆盖的题目，不要声称知识图谱已完整。
 
-## Notes
-- Keep the order dependency-first, not chapter-first.
-- Do not allow any past-paper question to remain uncovered.
-- Insert newly discovered prerequisite topics into the correct place instead of appending them at the end.
+## 备注
+- 按依赖优先排序，而非按章节排序。
+- 不允许任何真题保持未覆盖状态。
+- 将新发现的前置主题插入正确位置，而非追加到末尾。
+```
+
+## 1.5. `past-paper-solutions.md`
+
+```markdown
+# 真题完整解析
+
+## 概览
+- 真题总数：
+- 涉及年份：
+- 覆盖知识点数：
+- 全部解析完成：是 / 否
+
+## 按知识点分类
+
+### KP-01 [知识点名称]
+
+#### [年份] [考试名称] 题 [编号]
+
+**原题**：
+> [完整题目文本]
+
+**分值**：
+
+**考查知识点**：
+
+**详细解题过程**：
+1. [第一步]
+   - 依据：[所用公式/定理/推理]
+2. [第二步]
+   - 依据：
+3. ...
+
+**得分关键步骤**：
+-
+
+**常见错误**：
+-
+
+**同类题解题模式**：
+-
+
+---
+
+### KP-02 [知识点名称]
+...
+
+## 交叉引用
+| 题目 | 主要知识点 | 相关知识点 |
+
+## 未解析的题目
+- 无（目标：零未解析题目）
 ```
 
 ## 2. `study-plan.md`
 
 ```markdown
-# Study Plan
+# 学习计划
 
-## Timeline
-- Total days available:
-- Planning mode:
-- Main risk:
-- Passing strategy:
+## 时间线
+- 可用天数：
+- 规划模式：
+- 主要风险：
+- 通过策略：
 
-## Phase Plan
-### Phase 1: Foundation Repair
-- Days:
-- Topics:
-- Exit criteria:
+## 阶段计划
+### 第一阶段：基础修补
+- 天数：
+- 主题：
+- 退出标准：
 
-### Phase 2: High-Yield Core Topics
-- Days:
-- Topics:
-- Exit criteria:
+### 第二阶段：高收益核心主题
+- 天数：
+- 主题：
+- 退出标准：
 
-### Phase 3: Past-Paper Pattern Training
-- Days:
-- Topics:
-- Exit criteria:
+### 第三阶段：真题题型训练
+- 天数：
+- 主题：
+- 退出标准：
 
-### Phase 4: Final Review
-- Days:
-- Topics:
-- Exit criteria:
+### 第四阶段：最终复习
+- 天数：
+- 主题：
+- 退出标准：
 
-## Daily Schedule
-| Day | Topics | Tasks | Required Output | Completion Check |
+## 每日安排
+| 天 | 主题 | 任务 | 要求产出 | 完成检查 |
 | --- | --- | --- | --- | --- |
-| Day 1 | KP-01 Conditional Probability | Read topic file, solve 8 basic questions, explain the definition aloud | Updated notes + solved set | Can solve 6/8 without notes |
+| 第1天 | KP-01 条件概率 | 阅读主题文件，解8道基础题，口述定义 | 更新笔记 + 已解题集 | 能不看笔记做对6/8 |
 
-## Non-Negotiables
-- Review blocks:
-- Practice blocks:
-- Buffer:
-- Final mock:
+## 不可妥协项
+- 复习时段：
+- 练习时段：
+- 缓冲时间：
+- 最终模考：
 ```
 
 ## 3. `knowledge-points/<slug>.md`
 
 ```markdown
-# KP-01 Topic: Conditional Probability
+# KP-01 主题：条件概率
 
-## Role in the Course
-- Type: Prerequisite / Supporting / Exam-critical
-- Reading order:
-- Why it matters:
-- Where it appears in the materials:
-- Linked past-paper questions:
+## 课程定位
+- 类型：前置 / 辅助 / 考试关键
+- 阅读顺序：
+- 为什么重要：
+- 在材料中出现的位置：
+- 关联真题：
 
-## Material Evidence
-- Lecture or textbook source:
-- PPT or slide source:
-- Notes source:
-- Recording or verbal source:
-- Supplement source:
-- Teacher wording worth preserving:
+## 材料证据
+- 讲义或教材来源：
+- PPT 或幻灯片来源：
+- 笔记来源：
+- 录音或口头来源：
+- 补充材料来源：
+- 值得保留的老师用语：
 
-## Learning Goal
-- After reading this file, the learner should be able to:
-- Why this topic is hard for beginners:
+## 学习目标
+- 读完此文件后，学习者应能：
+- 为什么这个主题对初学者来说很难：
 
-## What You Must Understand to Pass
-- Minimum pass-level understanding:
-- What can be ignored for now:
+## 通过考试必须理解的内容
+- 最低通过水平的理解：
+- 目前可以忽略的内容：
 
-## Prerequisites
-- Required first:
-- Optional supporting ideas:
+## 前置知识
+- 必须先学：
+- 可选的辅助概念：
 
-## Core Teaching Section
-- This is the most important and longest part of the file.
-- Spend most of the writing effort here.
-- Keep the logic smooth and easy to follow.
+## 核心教学部分
+- 这是文件中最重要、最长的部分。
+- 在此投入最多的写作精力。
+- 保持逻辑流畅且易于跟随。
 
-## 1. The Problem
-- Start with an engineering dilemma, physical paradox, or practical failure case:
-- Why this problem matters:
-- What goes wrong if the learner does not understand this topic:
+## 1. 问题
+- 从工程困境、物理悖论或实际失败案例开始：
+- 为什么这个问题重要：
+- 如果学习者不理解这个主题会怎样：
 
-## 2. The Intuition
-- Give a daily-life analogy:
-- Explain the abstract idea through physical intuition:
-- Which material explains this intuition best:
+## 2. 直觉
+- 给出日常生活类比：
+- 通过物理直觉解释抽象概念：
+- 哪份材料最好地解释了这个直觉：
 
-## 3. Concrete STEM Case
-- Use a real engineering, physical, or STEM scenario:
-- Input:
-- Output:
-- What changes in the middle:
-- How this connects to the real concept:
+## 3. 具体理工案例
+- 使用真实的工程、物理或理工场景：
+- 输入：
+- 输出：
+- 中间发生了什么变化：
+- 如何与真实概念联系：
 
-## 4. The Rigor
-- Formal definition or formula:
-- Explain every symbol:
-- Explain the physical or logical meaning of each symbol:
-- Step-by-step derivation or logic breakdown:
-- When this formula or method works:
-- When this formula or method does not work:
-- How the lecture or textbook presents it:
-- How the PPT frames or compresses it:
-- How notes or recordings clarify it:
-- Avoid unnecessary new terminology:
-- If a new term must appear, explain it immediately in plain Chinese:
+## 4. 严格推导
+- 正式定义或公式：
+- 解释每个符号：
+- 解释每个符号的物理或逻辑含义：
+- 逐步推导或逻辑分解：
+- 此公式或方法何时有效：
+- 此公式或方法何时无效：
+- 讲义或教材如何呈现：
+- PPT 如何框架或压缩：
+- 笔记或录音如何澄清：
+- 避免不必要的新术语：
+- 如果必须出现新术语，立即用通俗中文解释：
 
-## 5. Worked Example
-- Problem:
-- Full solution:
-- Why the solution works:
-- Why each step is necessary:
+## 5. 完整例题
+- 题目：
+- 完整解答：
+- 为什么此解法有效：
+- 为什么每一步是必要的：
 
-## Past-Paper Analysis
-- If relevant, copy or restate the past-paper question first:
-- Question reference:
-- Full question text or essential content:
-- How this topic is tested in that question:
-- Fast recognition pattern:
-- Detailed solution and reasoning:
-- Solving steps that earn marks:
-- Common trap shown by this question:
+## 真题分析
+- 如相关，先复现真题题目：
+- 题目引用：
+- 完整题目文本或核心内容：
+- 此知识点在该题中如何被考查：
+- 快速识别模式：
+- 详细解答和推理：
+- 得分关键步骤：
+- 此题揭示的常见陷阱：
 
-## Material-to-Exam Bridge
-- Which material most directly prepares the learner for this past-paper question:
-- What the learner should notice in the material before attempting the question:
-- Which exact phrase, formula, diagram, or example from the material reappears in the exam setting:
+## 材料到考试的桥梁
+- 哪份材料最直接地为学习者准备这道真题：
+- 学习者在尝试做题之前应在材料中注意什么：
+- 材料中哪个确切的短语、公式、图表或例子在考试场景中重新出现：
 
-## Common Mistakes
-- Mistake 1:
-- Mistake 2:
-- How to avoid these mistakes:
+## 常见错误
+- 错误 1：
+- 错误 2：
+- 如何避免这些错误：
 
-## Quick Self-Check
-- Question 1:
-- Question 2:
-- Question 3:
+## 快速自检
+- 问题 1：
+- 问题 2：
+- 问题 3：
 
-## Mastery Checklist
-- [ ] I can explain this topic in plain language.
-- [ ] I know when to use it.
-- [ ] I know when not to use it.
-- [ ] I can solve a standard exam question on it.
-- [ ] I can spot the common trap.
+## 掌握检查表
+- [ ] 我能用通俗语言解释这个主题。
+- [ ] 我知道什么时候使用它。
+- [ ] 我知道什么时候不该使用它。
+- [ ] 我能做一道关于它的标准考试题。
+- [ ] 我能识别常见陷阱。
 
-## Links
-- Parent topics unlocked by this topic:
-- Next topics to study:
+## 链接
+- 此主题解锁的父主题：
+- 下一步要学的主题：
 ```
 
-## 4. Drill-Down Update Pattern
+## 4. 深入拆解更新模式
 
-Use this whenever the learner says a topic still depends on something unknown.
+当学习者表示某个主题仍依赖于未知内容时使用。
 
 ```markdown
-## Drill-Down Record
-- Parent topic:
-- Missing prerequisite discovered:
-- Why it blocks progress:
-- New topic file created:
-- `knowledgepointslist.md` updated: Yes / No
-- `study-plan.md` updated: Yes / No
-- Parent topic file updated: Yes / No
-- Past-paper coverage rechecked: Yes / No
+## 深入拆解记录
+- 父主题：
+- 发现的缺失前置知识：
+- 为什么阻碍进展：
+- 新主题文件已创建：
+- `knowledgepointslist.md` 已更新：是 / 否
+- `study-plan.md` 已更新：是 / 否
+- 父主题文件已更新：是 / 否
+- 真题覆盖已重新检查：是 / 否
 ```
 
-## Timeline Rules
+## 时间线规则
 
-- Use `Emergency Cram` when the learner has 7 days or fewer.
-- Use `Short Sprint` when the learner has 8 to 21 days.
-- Use `Standard Countdown` when the learner has more than 21 days.
+- 学习者剩余 7 天或更少时使用"紧急突击"。
+- 学习者剩余 8 到 21 天时使用"短期冲刺"。
+- 学习者剩余超过 21 天时使用"标准倒计时"。

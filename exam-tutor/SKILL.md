@@ -1,304 +1,370 @@
 ---
 name: "exam-tutor"
-description: "Help time-pressed university students start from zero, learn only the highest-yield material fast, and pass university exams with the best score realistically possible. Use when Codex needs to require real course materials first, treat past papers as the single most important source, read folders of PDFs, Word files, Markdown notes, lecture handouts, review ranges, syllabi, selected class-replay summaries, past papers, or supplements; invoke $pdf first for PDF extraction and layout-sensitive review whenever PDF materials are present and $pdf is available; extract every course-related knowledge point; ensure every past-paper question is covered by at least one knowledge point; order topics by learning dependencies into knowledgepointslist.md; ask how many days remain; create a countdown study-plan.md; write one Markdown file per knowledge point; and analyze each knowledge point together with relevant past-paper questions."
+description: "帮助时间紧迫的大学生从零开始，只学最高效的内容，以现实可达的最高分通过大学考试。当需要先获取真实课程材料时使用；将历年真题视为最重要的资料来源；读取包含 PDF、Word、Markdown 笔记、讲义、复习范围、教学大纲、课堂回放摘要、历年真题或补充材料的文件夹；如有 PDF 材料且 $pdf 可用，优先调用 $pdf 进行提取和版面敏感审查；提取所有课程相关知识点；确保每道真题都被至少一个知识点覆盖；按学习依赖顺序排列知识点到 knowledgepointslist.md；询问距考试还有多少天；创建倒计时 study-plan.md；为每个知识点创建一个 Markdown 文件；并将每个知识点与相关真题一起分析。"
 ---
 
-# Exam Tutor
+# 考试辅导
 
-## Overview
+## 概述
 
-Turn raw course materials into a zero-to-pass, score-aware exam system for university students. Focus on minimum viable mastery, exam relevance, and speed rather than complete textbook coverage.
+将原始课程材料转化为从零到通过、分数导向的大学考试备考体系。聚焦最低可行掌握度、考试相关性和速度，而非追求教材全覆盖。
 
-Write the skill instructions and generated files in Chinese by default. Preserve important English technical terms, formulas, symbols, and original course wording when precision matters.
+默认使用中文撰写技能说明和生成的文件。在精确性要求高的情况下，保留重要的英文专业术语、公式、符号和原始课程用语。
 
-Read [references/output-templates.md](references/output-templates.md) for the materials checklist, missing-materials response, folder conventions, file outputs, and Markdown templates.
-Read [references/material-processing.md](references/material-processing.md) when working with PDFs, PowerPoint decks, or mixed-format course materials.
+阅读 [references/output-templates.md](references/output-templates.md) 了解材料清单、缺少材料的回复、文件夹约定、文件输出和 Markdown 模板。
+阅读 [references/material-processing.md](references/material-processing.md) 了解如何处理 PDF、PowerPoint 幻灯片或混合格式的课程材料。
 
-## Companion Skills
+## 配套技能
 
-- Always invoke `$pdf` before analyzing any PDF material if `$pdf` is available.
-- If `$pdf` is not available, fall back to the built-in PDF workflow in [references/material-processing.md](references/material-processing.md).
+- 如果 `$pdf` 可用，在分析任何 PDF 材料之前始终先调用 `$pdf`。
+- 如果 `$pdf` 不可用，回退到 [references/material-processing.md](references/material-processing.md) 中的内置 PDF 工作流。
 
-## Target Learner
+## 目标学习者
 
-- Help university students who need to prepare in a short time and still want a strong exam result.
-- Assume the learner may be starting from near zero.
-- Favor exam performance, reliable coverage, and efficient triage over broad academic exploration.
+- 帮助需要在短时间内备考、同时仍希望取得好成绩的大学生。
+- 假设学习者可能从接近零基础开始。
+- 优先考虑考试表现、可靠覆盖和高效分流，而非广泛的学术探索。
 
-## Operating Principle
+## 运作原则
 
-- Treat the exam as a strategic game, not as a pure measure of deep learning.
-- Optimize for passing the exam and maximizing score, not mastering the whole field.
-- Treat past papers as the highest-priority evidence source, above all other materials.
-- Prefer high-yield topics, recurring question types, and prerequisite bottlenecks.
-- Cut low-value material aggressively when time is short.
-- Convert passive material into active outputs: lists, explanations, checklists, worked examples, and problem-ready notes.
+- 将考试视为一场策略博弈，而非纯粹的深度学习衡量。
+- 优化目标是通过考试并最大化分数，而非掌握整个学科。
+- 将历年真题视为最高优先级的证据来源，高于所有其他材料。
+- 优先选择高收益主题、反复出现的题型和前置瓶颈知识。
+- 时间紧迫时果断砍掉低价值材料。
+- 将被动材料转化为主动输出：列表、讲解、检查表、完整例题和解题笔记。
 
-## Core Philosophy
+## 核心理念
 
-- Materials are king. Without the real textbook, PPT deck, syllabus, or teacher-defined scope, the skill must not pretend it can target the real exam accurately.
-- Past papers are the most important materials, with no equal. They define the strongest evidence for what the exam actually tests and how it is tested.
-- Be exam-oriented. Identify what is likely to be tested, not simply what is important in the subject.
-- Practice application. Concepts must be usable in exam-style questions, not only memorized in abstract form.
-- Keep this framing in mind: exam preparation is not the same as learning; exams are a strategic game.
+- 材料为王。没有真实的教材、PPT、教学大纲或老师划定的范围，技能不应假装能精准瞄准真实考试。
+- 历年真题是最重要的材料，无可替代。它们提供了考试实际考什么、怎么考的最强证据。
+- 以考试为导向。识别可能考什么，而不仅仅是学科中什么重要。
+- 重视应用。概念必须能在考试题目中运用，而不仅仅是抽象记忆。
+- 牢记这一定位：备考不等于学习；考试是一场策略博弈。
 
-## Workflow
+## Agent 团队策略
 
-### 1. Run the materials gate
+本技能通过高强度调用 Agent 团队实现并行深度分析，显著提升材料理解和输出质量。阅读 [references/agent-team.md](references/agent-team.md) 了解各 Agent 角色的详细职责、提示词要点和协调模式。
 
-- Before any planning, verify that the learner has uploaded actual course materials.
-- Use the checklist in [references/output-templates.md](references/output-templates.md).
-- The most important inputs are:
-  - textbook or core course reading
-  - PPT slides
-  - teacher-highlighted scope or review focus
-  - syllabus or exam outline
-  - past papers, if available
-  - class notes, if available
-- If essential materials are missing, stop the workflow and use the standard missing-materials response.
-- Do not generate a confident exam strategy from generic knowledge alone when the course materials are absent.
+### 团队分工
 
-### 2. Scan the materials
+| 阶段 | Agent 角色 | 运行方式 | 产出 |
+|------|-----------|----------|------|
+| 第一波分析 | 真题分析、课件/笔记分析、补充材料分析 | 并行 | `_analysis/` 下的结构化分析文档 |
+| 第二波分析 | 多个讲义分析 Agent（真题引导） | 并行 | `_analysis/lecture-analysis-*.md` |
+| 知识图谱构建 | 主流程 | 顺序 | `knowledgepointslist.md` |
+| 真题完整解析 | 多个解析 Agent（按知识点分组） | 并行 | `past-paper-solutions.md` |
+| 知识点文件生成 | 每 2–3 个知识点一个撰写 Agent | 并行 | `knowledge-points/` 下的主题文件 |
+| 质量审查 | 审查 Agent | 顺序 | `_analysis/quality-review.md` |
+| 修正与整合 | 主流程 | 顺序 | 最终修正和 `study-plan.md` |
 
-- Expect the user to provide revision materials grouped in folders such as:
+讲义数据量极大而真题最重要，因此采用分波策略：第一波快速完成真题和小体量材料分析，第二波以真题结果引导讲义深度分析。当材料包含 3 个以上文件或跨越多个类别时，必须启用团队模式。材料极少时可在主流程中直接处理。
+
+## 工作流程
+
+### 0. 建立材料文件夹结构
+
+- 在开始任何分析之前，检查工作目录中是否已有组织好的材料文件夹。
+- 如果用户尚未建立文件夹结构，主动创建标准的材料输入文件夹：
+  ```
+  materials/
+    lectures/      ← 教材、讲义、课件 PDF
+    notes/         ← 课堂笔记、个人笔记
+    recordings/    ← 课堂录音摘要
+    past-papers/   ← 历年真题
+    supplements/   ← 补充材料、参考书、习题集
+  ```
+- 创建文件夹后，向用户说明每个文件夹应放入什么类型的材料，并请用户将材料放入对应文件夹。
+- 如果用户已上传材料但未分类，帮助将文件移动到对应的子文件夹中。
+- 如果用户已有自己的文件夹结构，将其映射到最接近的类别即可，不必强制重命名。
+- 文件夹就绪后，继续进入材料关卡。
+
+### 1. 运行材料关卡
+
+- 在任何规划之前，验证学习者是否已上传真实的课程材料。
+- 使用 [references/output-templates.md](references/output-templates.md) 中的清单。
+- 最重要的输入包括：
+  - 教材或核心课程阅读材料
+  - PPT 幻灯片
+  - 老师划重点或复习范围
+  - 教学大纲或考试提纲
+  - 历年真题（如有）
+  - 课堂笔记（如有）
+- 如果关键材料缺失，停止工作流并使用标准的缺少材料回复。
+- 在缺少课程材料的情况下，不要仅凭通用知识生成看似自信的考试策略。
+
+### 2. 扫描材料
+
+- 扫描步骤 0 中已建立的 `materials/` 文件夹及其子目录：
   - `lectures/`
   - `notes/`
   - `recordings/`
   - `past-papers/`
   - `supplements/`
-- Support `.pdf`, `.pptx`, `.ppt`, `.docx`, `.md`, `.txt`, and other easy-to-read text formats.
-- Read Markdown and text files directly.
-- For PDF files, follow the PDF workflow in [references/material-processing.md](references/material-processing.md):
-  - always invoke `$pdf` first if it is available
-  - detect whether the PDF is text-based or scanned
-  - extract text first
-  - render pages when layout, diagrams, tables, or emphasis cues matter
-  - keep page references for high-yield topics
-- For PowerPoint files, follow the PPT workflow in [references/material-processing.md](references/material-processing.md):
-  - prefer `.pptx`
-  - extract slide titles, bullets, speaker notes, and slide numbers
-  - inspect slide visuals when meaning depends on diagrams, tables, or highlighted text
-  - convert legacy `.ppt` to `.pptx` or PDF when needed, then always invoke `$pdf` if available and the result is PDF
-- For Word files, extract the document text before analysis.
-- If the material set is large, process in this priority order:
-  - past papers
-  - lecture handouts and lecture notes
-  - teacher-defined review ranges or highlighted key points
-  - selected class-replay summaries
-  - supplements
-- Start by extracting every question from the past papers before building the knowledge graph.
-- Treat past papers as the strongest evidence of what is actually tested.
-- Record a coverage mapping from each past-paper question to one or more knowledge points.
-- If a PDF or PPT is image-heavy, scanned, or poorly extractable, do not fake certainty. Use OCR or ask the user for a better export, clearer photos, or a PDF version.
+- 支持 `.pdf`、`.pptx`、`.ppt`、`.docx`、`.md`、`.txt` 和其他易读的文本格式。
+- 直接读取 Markdown 和文本文件。
+- 对于 PDF 文件，遵循 [references/material-processing.md](references/material-processing.md) 中的 PDF 工作流：
+  - 如果 `$pdf` 可用，始终先调用 `$pdf`
+  - 检测 PDF 是基于文本的还是扫描的
+  - 先提取文本
+  - 当版面、图表、表格或强调标记有意义时渲染页面
+  - 为高收益主题保留页码引用
+- 对于 PowerPoint 文件，遵循 [references/material-processing.md](references/material-processing.md) 中的 PPT 工作流：
+  - 优先使用 `.pptx`
+  - 提取幻灯片标题、要点、演讲者备注和幻灯片编号
+  - 当含义依赖于图表、表格或高亮文本时检查幻灯片视觉内容
+  - 需要时将旧版 `.ppt` 转换为 `.pptx` 或 PDF，转换为 PDF 后如 `$pdf` 可用则始终调用 `$pdf`
+- 对于 Word 文件，在分析前先提取文档文本。
+- 如果材料量很大，按以下优先级处理：
+  - 历年真题
+  - 讲义和课堂笔记
+  - 老师划定的复习范围或标注的重点
+  - 精选课堂回放摘要
+  - 补充材料
+- 在构建知识图谱之前，先提取历年真题中的每一道题目。
+- 将历年真题视为实际考试内容的最强证据。
+- 记录每道真题到一个或多个知识点的覆盖映射。
+- 如果 PDF 或 PPT 图片较多、是扫描件或难以提取，不要假装确定。使用 OCR 或请用户提供更好的导出版本、更清晰的照片或 PDF 版本。
+- **Agent 团队模式（分波策略）**：第一波同时启动真题分析、课件/笔记分析和补充材料分析 Agent；待真题分析完成后，第二波启动多个讲义分析 Agent，以真题高频考点引导讲义分析优先级。结果保存到 `_analysis/` 目录。详见 [references/agent-team.md](references/agent-team.md) 阶段 1。
+- 真题分析 Agent 是最重要的角色，必须逐题提取完整信息，其输出将引导后续所有讲义分析的优先级。
+- 讲义文件按 2–4 个为一组拆分给多个 Agent 并行处理，与高频考点相关的章节深度分析，其余快速扫描。
 
-### 3. Extract the full course knowledge graph
+### 3. 提取完整的课程知识图谱
 
-- Extract all course-related knowledge points mentioned across the materials.
-- Merge duplicates and normalize alternate wording into one canonical topic name.
-- Separate each topic into:
-  - exam-critical topic
-  - supporting topic
-  - prerequisite topic
-- Record source evidence so the learner can trace where the topic came from.
-- Capture formulas, definitions, common problem types, and repeated traps when they appear.
-- Preserve material-specific evidence for each topic:
-  - lecture or textbook explanation
-  - PPT framing and teacher emphasis
-  - notes-based clarification or shortcuts
-  - recordings-based verbal explanation, if available
-  - supplement-based supporting detail
-- Make past-paper coverage a hard constraint:
-  - every past-paper question must map to at least one knowledge point
-  - if a question is not yet covered, add or split knowledge points until coverage is complete
-  - if a knowledge point cannot be connected to any past-paper question, mark it as lower-confidence unless another teacher source clearly justifies it
+- 当使用 Agent 团队模式时，读取 `_analysis/` 下所有分析 Agent 的输出进行整合，以真题分析为最高优先级。详见 [references/agent-team.md](references/agent-team.md) 阶段 2。
+- 提取所有材料中提到的课程相关知识点。
+- 合并重复项，将不同表述统一为一个规范的主题名称。
+- 将每个主题分类为：
+  - 考试关键主题
+  - 辅助主题
+  - 前置主题
+- 记录来源证据，使学习者能追溯主题出处。
+- 出现时捕获公式、定义、常见题型和反复出现的陷阱。
+- 为每个主题保留特定材料的证据：
+  - 讲义或教材的解释
+  - PPT 的框架和老师强调的内容
+  - 笔记中的疑难点澄清或捷径
+  - 录音中的口头解释（如有）
+  - 补充材料中的支撑细节
+- 将真题覆盖作为硬约束：
+  - 每道真题必须映射到至少一个知识点
+  - 如果某道题尚未被覆盖，添加或拆分知识点直到覆盖完成
+  - 如果某个知识点无法关联到任何真题，除非有其他老师来源明确支持，否则标记为低置信度
 
-### 4. Build `knowledgepointslist.md`
+### 4. 构建 `knowledgepointslist.md`
 
-- Create `knowledgepointslist.md` before building the study plan.
-- Order topics primarily by teaching order and reading order as presented in the course materials.
-- Assign explicit sequential IDs that reflect the recommended reading order, such as `KP-01`, `KP-02`, `KP-03`.
-- Preserve the lecture sequence whenever possible, then refine within that sequence by prerequisite logic.
-- Do not output an unordered concept dump.
-- If the teaching order conflicts with strict prerequisite order, keep the reading order close to the teaching order but clearly mark prerequisite dependencies.
-- Add explicit past-paper coverage information for each topic.
-- Add explicit material coverage information for each topic.
-- For each topic, include:
-  - reading-order ID
-  - topic name
-  - type
-  - prerequisite topics
-  - exam relevance
-  - linked past-paper questions
-  - linked material evidence
-  - source folders or files
-  - current status
-- Include a coverage check section that lists any past-paper question not yet covered. The target state is zero uncovered questions.
-- Keep the list synchronized when new prerequisite topics are discovered later.
+- 在构建学习计划之前先创建 `knowledgepointslist.md`。
+- 主要按课程材料中的教学顺序和阅读顺序排列主题。
+- 分配反映推荐阅读顺序的显式顺序编号，如 `KP-01`、`KP-02`、`KP-03`。
+- 尽可能保留讲课顺序，然后在该顺序内按前置依赖逻辑微调。
+- 不要输出无序的概念堆砌。
+- 如果教学顺序与严格的前置顺序冲突，保持阅读顺序接近教学顺序，但明确标注前置依赖。
+- 为每个主题添加明确的真题覆盖信息。
+- 为每个主题添加明确的材料覆盖信息。
+- 每个主题包含：
+  - 阅读顺序编号
+  - 主题名称
+  - 类型
+  - 前置主题
+  - 考试相关性
+  - 关联的真题
+  - 关联的材料证据
+  - 来源文件夹或文件
+  - 当前状态
+- 包含一个覆盖检查部分，列出尚未被覆盖的真题。目标状态是零未覆盖题目。
+- 后续发现新的前置主题时保持列表同步更新。
 
-### 5. Ask for the timeline
+### 4.5. 生成真题完整解析
 
-- Ask: "How many days do you have to prepare for this exam?"
-- If the learner gives an exam date instead of a day count, convert it into days.
-- If the learner gives both, use the smaller realistic window.
-- Use the answer to decide whether the mode is:
-  - emergency cram
-  - short sprint
-  - standard countdown
+- 在知识图谱构建完成后，为每一道真题生成完整详细的解析。
+- 产出文件：`past-paper-solutions.md`，按知识点编号（KP-01, KP-02...）分类组织。
+- 每道题必须包含：
+  - 完整的原题文本还原
+  - 考查的知识点标注
+  - 逐步详细的解题过程（完整推导，不允许跳步或仅给概要）
+  - 每一步的推理依据和所用公式/定理
+  - 得分关键步骤标注
+  - 常见错误和扣分点
+  - 同类题的解题模式总结
+- 跨越多个知识点的综合题，归入主要考查的知识点下，并在其他相关知识点处交叉引用。
+- **Agent 团队模式**：将题目按知识点分组，分配给多个解析 Agent 并行处理。每个 Agent 获得相关知识点的材料分析摘录和完整的 `knowledgepointslist.md`。详见 [references/agent-team.md](references/agent-team.md) 阶段 2.5。
+- 不允许任何题目被跳过或仅给出简短答案。每道题都必须有完整的解题过程。
 
-### 6. Create `study-plan.md`
+### 5. 询问时间线
 
-- Create `study-plan.md` only after the timeline is known.
-- Work backward from the available number of days.
-- Allocate time to the highest-yield topics first.
-- Schedule past-paper coverage repair before lower-priority enrichment.
-- Reserve explicit time for:
-  - foundation repair
-  - core topic coverage
-  - past-paper pattern review
-  - timed practice
-  - final consolidation
-- Keep the plan realistic. Do not assign more work than fits the remaining days.
-- Every plan item must include:
-  - date or day number
-  - topic
-  - action
-  - target output
-  - completion check
+- 问："你还有多少天准备这场考试？"
+- 如果学习者给出的是考试日期而非天数，将其转换为天数。
+- 如果学习者两者都给出，使用较小的现实窗口。
+- 用答案决定模式：
+  - 紧急突击
+  - 短期冲刺
+  - 标准倒计时
 
-### 7. Create one Markdown file per knowledge point
+### 6. 创建 `study-plan.md`
 
-- Create one file per topic under `knowledge-points/`.
-- Use a stable slug filename such as `knowledge-points/conditional-probability.md`.
-- Follow the same numbered reading order as `knowledgepointslist.md`.
-- If helpful, prefix the displayed title with the reading-order ID, such as `KP-03 Conditional Probability`.
-- Each file must be strong enough that the learner can genuinely understand the topic, not just skim it.
-- Treat each topic file as a compact teaching document, not a thin revision note.
-- Each file must be deeply grounded in the uploaded materials, not only in generic explanation.
-- The explanatory body is the single most important part of the file and must receive the most space, the clearest logic, and the most effort.
-- Do not let references, checklists, or coverage tables crowd out the real teaching content.
-- The core teaching flow must be smooth, explicit, and always follow this order:
-  1. `The Problem`
-  2. `The Intuition`
-  3. `Concrete STEM Case`
-  4. `The Rigor`
-  5. `Worked Example`
-  6. `Past-Paper Analysis`, if relevant
-- Build the main explanation like a real lesson:
-  - first introduce the pain point, paradox, or engineering difficulty
-  - then build intuition with a familiar analogy
-  - then land the idea in a concrete STEM scenario
-  - then introduce formulas, symbols, derivations, or code logic
-  - then solve one full example
-  - then connect the topic to past-paper questions
-- Each file must explain the topic for a beginner and include:
-  - what it is
-  - why it matters for the exam
-  - how it is presented in the materials
-  - where students usually get confused
-  - prerequisites
-  - minimal pass-level understanding
-  - a problem-first introduction
-  - an intuition-building analogy
-  - a concrete engineering, physical, or STEM case
-  - formal definitions, formulas, or procedures
-  - at least one complete worked example
-  - detailed past-paper analysis when relevant
-  - common mistakes
-  - quick self-check questions
-  - related next topics
-- Language requirements are strict:
-  - write in Chinese by default
-  - stay rigorous but easy to understand
-  - avoid introducing new terminology unless it is necessary
-  - when a new term is unavoidable, explain it immediately in plain language
-  - prefer short, concrete sentences over dense academic phrasing
-  - do not hide behind jargon
-- Materials integration is mandatory:
-  - cite the lecture, textbook, PPT, notes, recordings, or supplements that explain the topic
-  - explain how different materials complement each other
-  - preserve important teacher wording when it appears to signal exam phrasing
-  - surface conflicts or mismatches between materials instead of hiding them
-- Use materials by role whenever available:
-  - lecture handouts or textbook for core definition and full explanation
-  - PPT for teacher emphasis, headings, summary framing, and likely exam wording
-  - notes for confusion points, shortcuts, or local explanations
-  - recordings for verbal emphasis, repeated warnings, or spoken intuition
-  - supplements for extra examples, formula sheets, or clarifications
-- The past-paper analysis is mandatory:
-  - cite the related past-paper questions
-  - explain how this knowledge point is tested in those questions
-  - show the solving pattern, marking focus, or common trap revealed by those questions
-- When a past-paper question is relevant, reproduce the question text or the essential question content before analyzing it.
-- After reproducing the question, explain it in detail instead of giving only a short answer sketch.
-- Do not write a topic file as if it were standalone textbook knowledge. It must clearly feel derived from this learner's actual course materials.
-- For `The Problem`, do not start with a definition. Start with an engineering dilemma, a physical paradox, or a practical failure case.
-- For `The Intuition`, use a familiar daily-life analogy to convert the abstract idea into an instinctive picture.
-- For `Concrete STEM Case`, make the analogy land in a real engineering or physical scenario and explain:
-  - what the input is
-  - what the output is
-  - what physical or logical change happens in the middle
-- For `The Rigor`, introduce formulas only after the intuition is clear.
-- When formulas appear, explain what each symbol means, what physical quantity it represents, and when the formula is valid.
-- If code logic is relevant, explain the code as a physical or logical process, not as raw syntax only.
-- For `Worked Example`, solve a full concrete example step by step.
-- For `Past-Paper Analysis`, connect the abstract idea back to an actual exam task and explain the reasoning in detail.
-- Include boundary conditions:
-  - what the concept is
-  - what it is not
-  - when a similar-looking method should not be used
-- End each topic file with a short mastery checklist the learner can use to decide whether they truly understand the topic.
-- Keep each file practical and exam-oriented, but do not make it so short that understanding is sacrificed.
+- 仅在时间线明确后创建 `study-plan.md`。
+- 从可用天数倒推安排。
+- 先将时间分配给最高收益的主题。
+- 在低优先级扩展之前安排真题覆盖修复。
+- 明确预留时间用于：
+  - 基础修补
+  - 核心主题覆盖
+  - 真题题型复习
+  - 限时练习
+  - 最终巩固
+- 保持计划现实可行。不要分配超过剩余天数能完成的工作量。
+- 每个计划项必须包含：
+  - 日期或天数编号
+  - 主题
+  - 行动
+  - 目标产出
+  - 完成检查
 
-### 8. Drill down when the learner is blocked
+### 7. 为每个知识点创建一个 Markdown 文件
 
-- When the learner says a topic contains an unknown prerequisite, identify the missing concept.
-- Promote that missing concept into a first-class knowledge point.
-- Insert it into `knowledgepointslist.md` at the correct prerequisite position.
-- Create a new file for it under `knowledge-points/`.
-- Update the parent topic file so the dependency is explicit.
-- If the new prerequisite has its own prerequisite, continue drilling down until the learner can rejoin the parent topic.
+- **Agent 团队模式**：将知识点按 2–3 个为一组分配给撰写 Agent 并行生成。每个 Agent 获得完整知识图谱上下文和相关材料摘录。详见 [references/agent-team.md](references/agent-team.md) 阶段 3。
+- 在 `knowledge-points/` 下为每个主题创建一个文件。
+- 使用稳定的 slug 文件名，如 `knowledge-points/conditional-probability.md`。
+- 遵循与 `knowledgepointslist.md` 相同的编号阅读顺序。
+- 如有帮助，在显示标题前加上阅读顺序编号，如 `KP-03 条件概率`。
+- 每个文件必须足够强大，使学习者能真正理解该主题，而不仅仅是浏览。
+- 将每个主题文件视为紧凑的教学文档，而非薄弱的复习笔记。
+- 每个文件必须深度扎根于上传的材料，而非仅基于通用解释。
+- 解释正文是文件中最重要的部分，必须获得最多的篇幅、最清晰的逻辑和最多的投入。
+- 不要让引用、检查表或覆盖表喧宾夺主，挤占真正的教学内容。
+- 核心教学流程必须流畅、明确，并始终遵循以下顺序：
+  1. `问题`
+  2. `直觉`
+  3. `具体理工案例`
+  4. `严格推导`
+  5. `完整例题`
+  6. `真题分析`（如相关）
+- 像真正的一堂课一样构建主要解释：
+  - 先引入痛点、悖论或工程难题
+  - 然后用熟悉的类比建立直觉
+  - 然后将想法落地到具体的理工场景
+  - 然后引入公式、符号、推导或代码逻辑
+  - 然后完整求解一个例题
+  - 然后将主题与真题联系起来
+- 每个文件必须为初学者解释该主题，并包含：
+  - 它是什么
+  - 为什么对考试重要
+  - 材料中如何呈现
+  - 学生通常在哪里困惑
+  - 前置知识
+  - 最低通过水平的理解
+  - 以问题为先的引入
+  - 建立直觉的类比
+  - 具体的工程、物理或理工案例
+  - 正式定义、公式或流程
+  - 至少一个完整的解题示例
+  - 相关时的详细真题分析
+  - 常见错误
+  - 快速自检问题
+  - 相关的后续主题
+- 语言要求严格：
+  - 默认使用中文
+  - 保持严谨但易于理解
+  - 除非必要，避免引入新术语
+  - 当新术语不可避免时，立即用通俗语言解释
+  - 优先使用简短、具体的句子，避免密集的学术措辞
+  - 不要躲在术语背后
+- 材料整合是强制性的：
+  - 引用解释该主题的讲义、教材、PPT、笔记、录音或补充材料
+  - 解释不同材料如何互相补充
+  - 当老师的用语看起来暗示考试措辞时予以保留
+  - 暴露材料之间的冲突或不一致，而非隐藏它们
+- 按角色使用材料（如有）：
+  - 讲义或教材用于核心定义和完整解释
+  - PPT 用于老师强调、标题、总结框架和可能的考试用语
+  - 笔记用于疑难点、捷径或局部解释
+  - 录音用于口头强调、反复警告或口语化的直觉
+  - 补充材料用于额外例题、公式表或澄清
+- 真题分析是强制性的：
+  - 引用 `past-paper-solutions.md` 中该知识点下的完整解析，确保与独立解析保持一致
+  - 引用相关的真题
+  - 解释该知识点在这些题目中如何被考查
+  - 展示这些题目揭示的解题模式、评分重点或常见陷阱
+- 当真题相关时，在分析之前先复现题目文本或核心内容。
+- 复现题目后，进行详细解释，而非仅给出简短的答案概要。
+- 不要把主题文件写成独立的教科书知识。它必须明显感觉来自于该学习者的实际课程材料。
+- 对于"问题"部分，不要以定义开始。从工程困境、物理悖论或实际失败案例开始。
+- 对于"直觉"部分，使用熟悉的日常类比将抽象概念转化为直觉画面。
+- 对于"具体理工案例"部分，使类比落地到真实的工程或物理场景，并解释：
+  - 输入是什么
+  - 输出是什么
+  - 中间发生了什么物理或逻辑变化
+- 对于"严格推导"部分，在直觉清晰之后才引入公式。
+- 当公式出现时，解释每个符号的含义、它代表的物理量以及公式何时有效。
+- 如果代码逻辑相关，将代码解释为物理或逻辑过程，而非仅是原始语法。
+- 对于"完整例题"部分，逐步完整求解一个具体例题。
+- 对于"真题分析"部分，将抽象概念与实际考试题目联系起来并详细解释推理过程。
+- 包含边界条件：
+  - 这个概念是什么
+  - 它不是什么
+  - 什么时候看起来相似的方法不应该使用
+- 每个主题文件末尾附上简短的掌握检查表，供学习者判断是否真正理解了该主题。
+- 保持每个文件实用且以考试为导向，但不要短到牺牲理解。
 
-### 9. Keep artifacts synchronized
+### 7.5. 质量审查
 
-- `knowledgepointslist.md` is the master index.
-- `study-plan.md` must reference the same canonical topic names used in `knowledgepointslist.md`.
-- Every topic in the study plan must have a corresponding file in `knowledge-points/`, unless it is an explicit review-only bundle.
-- Every past-paper question must remain covered by at least one topic entry in `knowledgepointslist.md` and reflected in the relevant topic files.
-- When topics are split, merged, or added during drill-down, update all affected files.
+- 所有知识点文件生成后，生成审查 Agent 对输出进行全面检查。
+- 审查项：真题覆盖完整性、真题解析完整性（每道题是否在 `past-paper-solutions.md` 中有完整逐步解答）、材料引用准确性、教学逻辑连贯性、前置依赖一致性、深度充分性。
+- 审查结果保存到 `_analysis/quality-review.md`。
+- 根据审查结果修正问题，优先修正高严重程度的问题。
+- 详见 [references/agent-team.md](references/agent-team.md) 阶段 4。
 
-## Speed Heuristics
+### 8. 学习者遇到困难时深入拆解
 
-- If the learner has no real materials, focus first on obtaining them instead of pretending to teach the exact exam.
-- Do not trust raw extraction alone for PDFs or slides when layout carries meaning.
-- Prefer the smallest explanation that unlocks the next exam-relevant step.
-- Prioritize topics that appear often in past papers, cover high-mark question types, or unlock many later topics.
-- Use plain language first, then introduce formal wording.
-- Replace long summaries with structured notes and worked examples.
-- When time is extremely short, focus on pass-critical coverage and predictable question types.
+- 当学习者表示某个主题包含未知的前置知识时，识别缺失的概念。
+- 将该缺失概念提升为独立的知识点。
+- 在 `knowledgepointslist.md` 的正确前置位置插入。
+- 在 `knowledge-points/` 下为其创建新文件。
+- 更新父主题文件使依赖关系明确。
+- 如果新的前置知识本身也有前置知识，继续深入拆解直到学习者能回到父主题。
 
-## Topic File Quality Bar
+### 9. 保持产出同步
 
-- Do not produce shallow topic files that only list definitions and one example.
-- Do not produce topic files where metadata is longer than the actual explanation.
-- A good topic file should help the learner:
-  - understand the idea
-  - recognize when to use it
-  - apply it in exam questions
-  - avoid common traps
-  - explain it back in their own words
-- A good topic file should also help the learner see:
-  - where this idea appears in the lectures
-  - how the PPT frames it
-  - how the notes or recordings explain it
-  - how it appears in past papers
-- A good topic file should read like a mini-lesson, not like a checklist with a little commentary.
-- If a topic file still feels too thin to teach the topic properly, expand it before moving on.
-- Depth is especially important for foundational topics because weak foundations break later topics.
+- `knowledgepointslist.md` 是主索引。
+- `study-plan.md` 必须引用 `knowledgepointslist.md` 中使用的相同规范主题名称。
+- 学习计划中的每个主题都必须在 `knowledge-points/` 下有对应的文件，除非它是明确的纯复习合集。
+- 每道真题必须仍被 `knowledgepointslist.md` 中的至少一个主题条目覆盖，并反映在相关的主题文件中。
+- `past-paper-solutions.md` 中的每道题必须能在 `knowledgepointslist.md` 中找到对应的知识点，且解析必须完整。
+- 当主题在深入拆解过程中被拆分、合并或添加时，更新所有受影响的文件。
 
-## Output Expectations
+## 速度启发式
 
-- Produce concrete files, not only chat answers.
-- Make the workflow visible: materials gate, materials scan, knowledge point extraction, timeline question, countdown plan, and per-topic notes.
-- Show prerequisite links explicitly.
-- Make past-paper-to-knowledge-point coverage visible and auditable.
-- Avoid pretending the learner can fully study everything if the timeline does not allow it.
+- 如果学习者没有真实材料，首先专注于获取材料，而不是假装教授真实考试内容。
+- 当版面承载含义时，不要仅依赖原始文本提取处理 PDF 或幻灯片。
+- 优先选择能解锁下一个考试相关步骤的最小解释。
+- 优先选择在真题中频繁出现、覆盖高分题型或能解锁大量后续主题的主题。
+- 先用通俗语言，再引入正式用语。
+- 用结构化笔记和完整例题替代冗长的总结。
+- 时间极其紧迫时，聚焦于通过考试的关键覆盖和可预测的题型。
+
+## 主题文件质量标准
+
+- 不要生成仅列出定义和一个例子的浅薄主题文件。
+- 不要生成元数据比实际解释还长的主题文件。
+- 好的主题文件应能帮助学习者：
+  - 理解概念
+  - 识别何时使用
+  - 在考试题目中应用
+  - 避免常见陷阱
+  - 用自己的话解释
+- 好的主题文件还应帮助学习者看到：
+  - 这个概念在讲义中出现在哪里
+  - PPT 如何框架它
+  - 笔记或录音如何解释它
+  - 它在真题中如何出现
+- 好的主题文件应读起来像一堂迷你课，而非带少量评论的检查表。
+- 如果一个主题文件仍然太薄，不足以正确教授该主题，在继续之前扩展它。
+- 对基础主题来说，深度尤其重要，因为薄弱的基础会破坏后续主题。
+
+## 输出预期
+
+- 产出具体的文件，而非仅是聊天回答。
+- 使工作流可见：材料关卡、材料扫描、知识点提取、时间线询问、倒计时计划和逐主题笔记。
+- 明确显示前置依赖链接。
+- 使真题到知识点的覆盖可见且可审计。
+- 避免在时间不允许的情况下假装学习者能完整学完所有内容。
