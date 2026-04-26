@@ -4,172 +4,208 @@
 
 ## English
 
-`exam-tutor` is a reusable skill for high-yield university exam preparation.
+`exam-tutor` is a Claude Code skill that turns raw course materials into a complete, score-oriented exam prep system for university students.
 
-It helps an AI agent work from real course materials, extract knowledge points, organize them by prerequisite order, ask how much time is left, and create a practical countdown study plan. It is designed for university students who need to prepare quickly and still aim for a strong result.
+### What It Does
 
-### Why This Skill Exists
+Given a folder of real course materials, the skill:
 
-Many university exams are driven more by the teacher's slides, textbook wording, syllabus, and past-paper patterns than by broad subject mastery.
+1. **Scans and extracts** every past-paper question verbatim, then analyzes lectures, slides, notes, and supplements
+2. **Builds a knowledge map** (`knowledgepointslist.md`) with a Mermaid dependency graph, ensuring every past-paper question maps to at least one knowledge point
+3. **Generates a knowledge-point file for each topic** (`knowledge-points/KP-01-topic.md`) — each file is a self-contained mini-lesson that includes:
+   - Intuition-first teaching (problem → intuition → concrete example → formal derivation → worked example)
+   - **General problem-solving workflows** for each question type under this topic
+   - **Full solutions to every related past-paper question**, with strategy before step-by-step solving
+4. **Asks how many days you have left** and creates a realistic countdown study plan (`study-plan.md`)
 
-This skill is built around four ideas:
+### Core Ideas
 
-- Materials are king. Real course materials matter more than generic explanations.
-- Past papers are the most important materials, without exception. Every past-paper question must be covered by the knowledge-point system.
-- Exam orientation matters. The goal is to identify likely testable points, not to cover everything.
-- Application matters. Students need usable explanations and worked examples, not just summaries.
+- **Materials are king.** The skill refuses to generate exam strategy without real course materials.
+- **Past papers come first.** They are the strongest evidence of what will be tested. Every question must be covered.
+- **Knowledge points exist to serve problem-solving.** Each topic file includes generalized solving workflows and full past-paper solutions, not just concept summaries.
+- **Teach from zero.** Assumes the learner may be starting from scratch; uses plain-language intuition and everyday analogies before formal definitions.
 
 ### What It Produces
 
-When used well, the skill guides the agent to create:
-
-- `knowledgepointslist.md`
-- `study-plan.md`
-- `knowledge-points/<topic>.md` files for each knowledge point
-
-It also enforces two strict behaviors:
-
-- every past-paper question must map to at least one knowledge point
-- every knowledge-point Markdown file must analyze the related past-paper questions and connect them back to the uploaded materials
-
-It also supports drill-down learning: if a learner gets blocked by a missing prerequisite, that prerequisite becomes a first-class knowledge point and is added back into the knowledge map and study plan.
+```
+knowledgepointslist.md          ← Knowledge map with Mermaid dependency graph
+study-plan.md                   ← Countdown study plan based on available days
+knowledge-points/
+  KP-01-topic-one.md            ← Full teaching + problem-type workflows + past-paper solutions
+  KP-02-topic-two.md
+  ...
+_analysis/                      ← Intermediate analysis files (agent team outputs)
+```
 
 ### Expected Inputs
 
-The skill works best when the learner provides real course materials such as:
+Place your course materials in a `materials/` folder (the skill will create this structure if it doesn't exist):
 
-- textbook or core readings
-- PPT slides
-- teacher-highlighted review scope
-- syllabus or exam outline
-- past papers
-- class notes
+```
+materials/
+  lectures/      ← Textbooks, lecture handouts, course PDFs
+  notes/         ← Class notes, personal notes
+  recordings/    ← Class recording summaries
+  past-papers/   ← Past exam papers (most important!)
+  supplements/   ← Supplementary materials, exercise sets
+```
 
-Supported file types include `pdf`, `pptx`, `ppt`, `docx`, `md`, and `txt`.
+Supported formats: `pdf`, `pptx`, `ppt`, `docx`, `md`, `txt`.
 
 ### Installation
 
-Install the skill directly from this repository:
+```bash
+claude skill add --from https://github.com/skywalkjian/exam-tutor-skill
+```
+
+### Recommended: Install the PDF Skill
+
+If your materials contain PDFs (most do), install the `pdf` skill for better extraction:
 
 ```bash
-npx skills add https://github.com/<owner>/<repo> --skill exam-tutor
+claude skill add --from https://github.com/anthropics/claude-code-pdf-skill
 ```
 
-### Recommended Companion Skill
+The skill works without it, but PDF extraction quality improves significantly with `$pdf` available.
 
-For PDF-heavy workflows, install the `pdf` skill as a companion:
+### Usage
 
-```bash
-npx skills add https://github.com/openai/skills --skill pdf
+Start a Claude Code session in the directory containing your materials, then:
+
+```
+$exam-tutor 帮我准备考试
 ```
 
-`exam-tutor` can still operate without it, but PDF extraction and layout-sensitive review will be stronger when the `pdf` skill is available.
+Or be more specific:
 
-### Repository Structure
-
-```text
-exam-tutor/
-  SKILL.md
-  agents/openai.yaml
-  references/
-    material-processing.md
-    output-templates.md
+```
+$exam-tutor 分析 materials/ 文件夹里的课程资料，构建知识体系，生成知识点文件和学习计划
 ```
 
-### Usage Example
+The skill will:
+1. Check that you have real course materials (and tell you what's missing)
+2. Scan and analyze everything, prioritizing past papers
+3. Build the knowledge map and generate all knowledge-point files
+4. Ask you how many days you have left
+5. Create a study plan tailored to your timeline
 
-```text
-Use $exam-tutor to review these course materials, treat past papers as the most important source, build knowledgepointslist.md so every past-paper question is covered, ask how many days I have left, and create a high-yield study-plan.md.
-```
+### How the Agent Team Works
 
-### Publishing Notes
+When materials contain 3+ files, the skill automatically uses parallel agents:
 
-- Keep the skill course-material-driven.
-- Avoid hard-coding local paths or machine-specific assumptions.
-- If you publish this repo to GitHub, users can install it with the `skills` CLI and it can be indexed by skills.sh.
+- **Wave 1**: One agent per past paper + one for slides/notes + one for supplements (all parallel)
+- **Wave 2**: One agent per lecture file, guided by past-paper high-frequency topics (all parallel)
+- **Knowledge map**: Main process merges all analysis results
+- **Knowledge-point files**: One writing agent per topic (all parallel), each producing a full teaching document with solutions
+- **Quality review**: A review agent checks coverage, consistency, and depth
+- **Final**: Corrections applied, study plan generated
+
+### Requirements
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
+- Python with `numpy` and `sympy` (for heavy math computation in solutions)
+
+---
 
 ## 中文
 
-`exam-tutor` 是一个面向大学生高效备考的 Skill。
+`exam-tutor` 是一个 Claude Code 技能，能将原始课程资料转化为完整的、以分数为导向的大学考试备考体系。
 
-它会基于真实课程资料提取知识点，按前置依赖组织知识体系，询问剩余备考时间，并生成倒计时学习计划。这个 Skill 的定位非常明确：帮助大学生在有限时间内尽可能高效地准备并争取更好的考试结果。
+### 它做什么
 
-### 为什么要做这个 Skill
+给定一个包含真实课程资料的文件夹，这个技能会：
 
-很多大学考试更接近“围绕老师 PPT、教材表述、考纲和往年题来命题”，而不是对学科深度理解的全面评估。
+1. **扫描并逐字提取**每一道往年真题，然后分析讲义、PPT、笔记和补充材料
+2. **构建知识图谱**（`knowledgepointslist.md`），含 Mermaid 依赖关系图，确保每道真题都映射到至少一个知识点
+3. **为每个知识点生成一个教学文件**（`knowledge-points/KP-01-topic.md`）——每个文件是一堂完整的迷你课，包含：
+   - 直觉优先的教学流程（问题 → 直觉 → 具体案例 → 严格推导 → 完整例题）
+   - **该知识点下每种题型的通用解题流程**（步骤化模板，遇到同类题直接套用）
+   - **该知识点下每道真题的完整解析**（先给整体解题思路，再逐步解题）
+4. **询问你还有多少天**，生成现实可行的倒计时学习计划（`study-plan.md`）
 
-这个 Skill 建立在四个核心理念上：
+### 核心理念
 
-- 材料为王：真实课程资料比通用讲解更重要。
-- 往年题第一：往年题是最重要的资料，没有之一。每一道往年题都必须被知识点体系覆盖。
-- 考点导向：重点是识别什么会考，而不是试图覆盖所有内容。
-- 应用优先：学生需要可用于做题的解释、例题和易错点，而不只是概念摘要。
+- **材料为王**：没有真实课程资料，技能会拒绝生成考试策略
+- **真题第一**：往年题是考试考什么、怎么考的最强证据，每道题必须被覆盖
+- **知识点为做题服务**：每个知识点文件不仅教概念，还包含题型通用解题流程和完整真题解析
+- **从零教起**：假设学习者可能零基础，用大白话和生活化类比建立直觉，再引入公式
 
-### 它会产出什么
+### 产出文件
 
-正常使用时，这个 Skill 会引导代理生成：
+```
+knowledgepointslist.md          ← 知识图谱 + Mermaid 依赖关系图
+study-plan.md                   ← 倒计时学习计划
+knowledge-points/
+  KP-01-xxx.md                  ← 完整教学 + 题型解题流程 + 真题解析
+  KP-02-xxx.md
+  ...
+_analysis/                      ← Agent 团队中间分析结果
+```
 
-- `knowledgepointslist.md`
-- `study-plan.md`
-- `knowledge-points/<topic>.md` 知识点文档
+### 输入材料
 
-它还要求两个硬约束：
+将课程资料放入 `materials/` 文件夹（技能会自动创建目录结构）：
 
-- 每一道往年题都必须映射到至少一个知识点
-- 每个知识点文档不仅要分析相关往年题，还要深度结合上传的课程资料来解释该知识点
+```
+materials/
+  lectures/      ← 教材、讲义、课件 PDF
+  notes/         ← 课堂笔记、个人笔记
+  recordings/    ← 课堂录音摘要
+  past-papers/   ← 历年真题（最重要！）
+  supplements/   ← 补充材料、习题集
+```
 
-它也支持 Drill-down 学习：如果学生在某个知识点上卡住，发现缺少前置知识，那么这个前置知识会被提升为新的正式知识点，并同步加入知识图谱和学习计划。
+支持格式：`pdf`、`pptx`、`ppt`、`docx`、`md`、`txt`。
 
-### 建议输入材料
-
-这个 Skill 最适合处理以下真实课程资料：
-
-- 教材或核心阅读材料
-- PPT 课件
-- 老师划的重点或复习范围
-- 考纲 / 大纲
-- 往年题
-- 课堂笔记
-
-支持的主要文件格式包括 `pdf`、`pptx`、`ppt`、`docx`、`md` 和 `txt`。
-
-### 安装方式
-
-把这个 Skill 直接从仓库安装：
+### 安装
 
 ```bash
-npx skills add https://github.com/<owner>/<repo> --skill exam-tutor
+claude skill add --from https://github.com/skywalkjian/exam-tutor-skill
 ```
 
-### 推荐配套 Skill
+### 推荐：安装 PDF 技能
 
-如果资料里有很多 PDF，建议同时安装 `pdf` Skill：
+如果资料包含 PDF（大多数情况都有），建议安装 `pdf` 技能以获得更好的提取效果：
 
 ```bash
-npx skills add https://github.com/openai/skills --skill pdf
+claude skill add --from https://github.com/anthropics/claude-code-pdf-skill
 ```
 
-即使不安装，`exam-tutor` 也能工作；但如果装了 `pdf`，PDF 提取和版面检查会更可靠。
+不安装也能用，但有 `$pdf` 时 PDF 提取质量会显著提升。
 
-### 仓库结构
+### 使用方法
 
-```text
-exam-tutor/
-  SKILL.md
-  agents/openai.yaml
-  references/
-    material-processing.md
-    output-templates.md
+在包含课程资料的目录下启动 Claude Code，然后：
+
+```
+$exam-tutor 帮我准备考试
 ```
 
-### 使用示例
+或者更具体地：
 
-```text
-Use $exam-tutor to 用中文分析这些大学课程资料，把往年题作为最重要的资料来源，构建 knowledgepointslist.md 并确保每一道往年题都被知识点覆盖，然后询问我还有多少天备考，再生成高质量的 study-plan.md。
+```
+$exam-tutor 分析 materials/ 文件夹里的课程资料，构建知识体系，生成知识点文件和学习计划
 ```
 
-### 发布说明
+技能会自动：
+1. 检查你是否有真实课程资料（缺什么会告诉你）
+2. 扫描分析所有材料，优先处理往年真题
+3. 构建知识图谱，生成所有知识点文件（含题型流程和真题解析）
+4. 问你还有几天考试
+5. 根据时间线生成学习计划
 
-- 保持这个 Skill 以课程资料为中心。
-- 不要写死本地路径或机器相关假设。
-- 如果你把仓库发布到 GitHub，用户可以用 `skills` CLI 安装，并有机会被 skills.sh 收录。
+### Agent 团队机制
+
+当材料超过 3 个文件时，技能自动启用并行 Agent 团队：
+
+- **第一波**：每份真题一个 Agent + 课件笔记一个 Agent + 补充材料一个 Agent（并行）
+- **第二波**：每个讲义文件一个 Agent，由真题高频考点引导分析优先级（并行）
+- **知识图谱**：主流程合并所有分析结果
+- **知识点文件**：每个知识点一个撰写 Agent（并行），每个产出完整教学文档 + 解题流程 + 真题解析
+- **质量审查**：审查 Agent 检查覆盖、一致性和深度
+- **最终**：修正问题，生成学习计划
+
+### 环境要求
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
+- Python + `numpy` + `sympy`（用于解题中的数学计算）
