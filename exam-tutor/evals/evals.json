@@ -64,7 +64,13 @@
     {
       "id": 11,
       "prompt": "身份政治课件已经放好了，开始工作。",
-      "expected_output": "如果项目状态中 discipline_track=humanities-social-sciences，则只加载人文社科 workflow 和模板；材料分析应提取问题意识、概念界定、理论谱系、争议结构、作者/文本、案例和答题框架，不生成理工科式严格推导、公式表或计算题流程。",
+      "expected_output": "如果项目状态中 discipline_track=humanities-social-sciences，则只加载人文社科 workflow 和模板；材料分析应提取问题意识、概念界定、理论谱系、争议结构、作者/文本、案例和答题框架，不生成理工科式严格推导、公式表或计算题流程。最终 KP 不能是同构短卡片或几十行提纲，也不能因为 lecture-first 默认一讲一文件、模板允许省略、缺少真题或固定小节而被压缩成短提纲；质量审查必须检查并阻止文科薄文件通过。",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "身份政治这个人文社科项目的 KP 内容太少了，每个都像短提纲，请修改这些 KP，并把 skill 以后也改成不要再生成这种薄文件。",
+      "expected_output": "识别为 humanities-social-sciences 项目的 topic-repair 和 skill-improvement 请求；先读取项目状态、knowledgepointslist.md、coverage-audit.md、quality-review.md 和现有 KP，判定同构短卡片/文科薄文件后，按人文社科模板扩写受影响 KP。扩写后的 KP 应包含问题意识、概念比较、争议结构、课程案例及其分析、题目作答路径、可背论述句、误区和考前速记，并更新 coverage-audit.md、quality-review.md、exam-tutor-state.json。同时修改 skill 的人文社科 workflow/output-templates/agent-team 或 evals，删除会导致内容变薄的限制，例如默认一讲一 KP、可省略自拟题、模板小节可压缩省略、只做短版草稿、固定数量式深度门槛等。",
       "files": []
     }
   ]
