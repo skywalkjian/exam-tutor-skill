@@ -2,7 +2,7 @@
 
 本路径只用于 `discipline_track=humanities-social-sciences` 的项目。进入本文件后，不要读取或借用 `references/tracks/stem/` 下的任何内容。
 
-> 当前文件是人文社科路径的框架骨架。后续可在本目录继续填充更细的课程类型、模板和评分标准。即使内容尚未填满，也不能临时套用理工科路径。
+
 
 ## 必读文件
 
