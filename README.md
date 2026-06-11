@@ -22,50 +22,6 @@
 
 核心目标不是“学完整本教材”，而是在有限时间内建立可执行、可检查、以真题为中心的备考体系。
 
-### 一句话使用
-
-在你希望存放备考项目的目录中打开 Claude Code、Codex 或 Kimi Code，然后直接告诉 agent：
-
-```text
-下载 https://github.com/skywalkjian/exam-tutor-skill，并使用 exam-tutor 开始一个新的备考项目。
-```
-
-预期流程：
-
-1. agent 下载或安装 `skywalkjian/exam-tutor-skill`。
-2. agent 询问：“这次备考项目叫什么名字？这门课属于哪条路径：理工科，还是人文社科？”
-3. 你回答项目名和学科路径。
-4. agent 用这个名字创建新的工作区，并在状态文件中锁定路径。
-5. agent 在工作区里创建 `materials/`、`_analysis/`、`knowledge-points/` 等目录。
-6. agent 停下来，等待你放入课程资料。
-7. 你把资料放进 `materials/` 后，说“开始工作”。
-8. agent 开始提取真题、构建知识图谱、生成知识点文件和学习计划。
-
-### 一键安装
-
-如果你的 agent 不能自动安装 skill，可以手动运行下面的命令。它会把同一个 `exam-tutor/` skill 文件夹安装到 Claude Code、Codex、Kimi Code 的用户级 skills 目录：
-
-```bash
-tmp="$(mktemp -d)" && \
-git clone --depth 1 https://github.com/skywalkjian/exam-tutor-skill.git "$tmp/exam-tutor-skill" && \
-for dir in "$HOME/.claude/skills" "${CODEX_HOME:-$HOME/.codex}/skills" "${KIMI_CODE_HOME:-$HOME/.kimi-code}/skills"; do
-  mkdir -p "$dir"
-  rm -rf "$dir/exam-tutor"
-  cp -R "$tmp/exam-tutor-skill/exam-tutor" "$dir/exam-tutor"
-done && \
-rm -rf "$tmp" && \
-echo "Installed exam-tutor for Claude Code, Codex, and Kimi Code. Restart the tool you use."
-```
-
-如果希望把 skill 跟某门课的资料仓库一起提交，也可以项目级安装：
-
-```bash
-for dir in .claude/skills .codex/skills .agents/skills .kimi-code/skills; do
-  mkdir -p "$dir"
-  rm -rf "$dir/exam-tutor"
-  cp -R /path/to/exam-tutor-skill/exam-tutor "$dir/exam-tutor"
-done
-```
 
 ### 具体使用方法
 
